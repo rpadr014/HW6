@@ -17,7 +17,9 @@ namespace HW5
 
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            textBox.Text = "";
+            file.Clear();
+            fileName = "";
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
