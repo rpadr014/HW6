@@ -10,6 +10,7 @@ namespace HW5
     {
         private ArrayList file = new ArrayList();
         private string fileName = "";
+        private bool edited = false;
         public mainForm()
         {
             InitializeComponent();
@@ -108,6 +109,29 @@ namespace HW5
             finally
             {
                 fs.Close();
+                edited = false;
+            }
+        }
+
+        private void textBox_TextChanged(object sender, EventArgs e)
+        {
+            edited = true;
+        }
+
+        private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(edited == true)
+            {
+                var res = MessageBox.Show("Do you want to save changes?", "Changes detected!", MessageBoxButtons.YesNoCancel);
+
+                if (res == DialogResult.Yes)
+                {
+                    saveAsToolStripMenuItem_Click(sender, e);
+                }
+                else if(res == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
             }
         }
     }
