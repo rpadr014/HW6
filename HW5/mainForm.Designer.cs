@@ -31,7 +31,7 @@
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.openFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox = new System.Windows.Forms.TextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,18 +61,18 @@
             // newFileToolStripMenuItem
             // 
             this.newFileToolStripMenuItem.Name = "newFileToolStripMenuItem";
-            this.newFileToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.newFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newFileToolStripMenuItem.Text = "New File";
             this.newFileToolStripMenuItem.Click += new System.EventHandler(this.newFileToolStripMenuItem_Click);
             // 
-            // textBox1
+            // textBox
             // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(0, 24);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(800, 426);
-            this.textBox1.TabIndex = 1;
+            this.textBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox.Location = new System.Drawing.Point(0, 24);
+            this.textBox.Multiline = true;
+            this.textBox.Name = "textBox";
+            this.textBox.Size = new System.Drawing.Size(800, 426);
+            this.textBox.TabIndex = 1;
             // 
             // statusStrip1
             // 
@@ -102,11 +102,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBox);
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.mainMenu;
             this.Name = "mainForm";
-            this.Text = "Form1";
+            this.Text = "Letterpad";
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
             this.ResumeLayout(false);
@@ -119,7 +119,7 @@
         private MenuStrip mainMenu;
         private ToolStripMenuItem openFileToolStripMenuItem;
         private ToolStripMenuItem newFileToolStripMenuItem;
-        private TextBox textBox1;
+        private TextBox textBox;
         private StatusStrip statusStrip1;
         private ToolStripMenuItem saveToolStripMenuItem;
         private ToolStripMenuItem saveAsToolStripMenuItem;

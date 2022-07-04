@@ -14,7 +14,7 @@ namespace HW5
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            System.IO.File.WriteAllText("demo.txt", textBox.Text);
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
