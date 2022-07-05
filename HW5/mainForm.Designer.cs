@@ -114,18 +114,21 @@
             this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
             this.cutToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.cutToolStripMenuItem.Text = "Cut";
+            this.cutToolStripMenuItem.Click += CutToolStripMenuItem_Click;
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
             this.copyToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.copyToolStripMenuItem.Text = "Copy";
+            this.copyToolStripMenuItem.Click += CopyToolStripMenuItem_Click;
             // 
             // pasteToolStripMenuItem
             // 
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
             this.pasteToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.pasteToolStripMenuItem.Text = "Paste";
+            this.pasteToolStripMenuItem.Click += PasteToolStripMenuItem_Click;
             // 
             // textBox
             // 
@@ -189,6 +192,7 @@
 
         private void PasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.textBox.SelectedText = "";
             var selectionIndex = this.textBox.SelectionStart;
             this.textBox.Text = this.textBox.Text.Insert(selectionIndex, Clipboard.GetText());
             this.textBox.SelectionStart = selectionIndex + Clipboard.GetText().Length;
