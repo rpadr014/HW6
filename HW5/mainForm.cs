@@ -11,6 +11,7 @@ namespace HW5
         private ArrayList file = new ArrayList();
         private string fileName = "";
         private bool edited = false;
+
         public mainForm()
         {
             InitializeComponent();
@@ -116,6 +117,26 @@ namespace HW5
         private void textBox_TextChanged(object sender, EventArgs e)
         {
             edited = true;
+            Point pt;
+
+            int line, col, index;
+
+            // get the current line
+            index = this.textBox.SelectionStart;
+            line = this.textBox.GetLineFromCharIndex(index);
+
+            // get the caret position in pixel coordinates
+            pt = this.textBox.GetPositionFromCharIndex(index);
+
+            // now get the character index at the start of the line, and
+            // subtract from the current index to get the column
+            pt.X = 0;
+            col = index - this.textBox.GetCharIndexFromPosition(pt);
+
+            // finally, update the display in the status bar, incrementing the line and
+            // column values so that the first line & first character position is
+            // shown as "1, 1"
+            this.statusLabel.Text = "Row: " + (++line).ToString() + ", Column: " + (++col).ToString();
         }
 
         private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
