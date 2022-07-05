@@ -86,6 +86,7 @@ namespace HW5
                     fs.Close();
                 }
 
+                this.textBox.Clear();
                 foreach (string s in file)
                 {
                     textBox.Text += s + Environment.NewLine;
