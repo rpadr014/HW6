@@ -11,6 +11,7 @@ namespace HW5
         private ArrayList file = new ArrayList();
         private string fileName = "";
         private bool edited = false;
+        public Features features = new Features();
 
         public mainForm()
         {
@@ -170,6 +171,24 @@ namespace HW5
             textBox.BackColor = e.passedTextBoxBase.BackColor;
             textBox.Font = e.passedFont;
         }
+
+        private void mainForm_Load(object sender, EventArgs e)
+        {
+            loadFeatures(features);
+        }
+
+        private void loadFeatures(Features theFeatures)
+        {
+            this.textBox.ForeColor = theFeatures.textColor;
+            this.textBox.BackColor = theFeatures.textBackColor;
+            this.textBox.Font = theFeatures.textFont;
+            this.Size = theFeatures.Size;
+            this.Location = theFeatures.Location;
+            this.Text = theFeatures.textTitle;
+        }
+
+
+
 
     }
 }
