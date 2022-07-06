@@ -156,5 +156,20 @@ namespace HW5
                 }
             }
         }
+
+        private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PropForm propForm = new PropForm(textBox, textBox.Font);
+            propForm.AddingNew += propForm_AddingNew;
+            propForm.Show();
+        }
+
+        private void propForm_AddingNew(object sender, AddingNewEventArgs e)
+        {
+            textBox.ForeColor = e.passedTextBoxBase.ForeColor;
+            textBox.BackColor = e.passedTextBoxBase.BackColor;
+            textBox.Font = e.passedFont;
+        }
+
     }
 }
