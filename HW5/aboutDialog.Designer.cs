@@ -46,30 +46,31 @@ namespace HW5
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.descLabel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 57);
+            this.panel1.Location = new System.Drawing.Point(0, 66);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(803, 201);
+            this.panel1.Size = new System.Drawing.Size(937, 231);
             this.panel1.TabIndex = 3;
             // 
             // descLabel
             // 
             this.descLabel.BackColor = System.Drawing.Color.PowderBlue;
             this.descLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.descLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.descLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.descLabel.ForeColor = System.Drawing.Color.Black;
             this.descLabel.Location = new System.Drawing.Point(0, 0);
+            this.descLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.descLabel.Name = "descLabel";
-            this.descLabel.Size = new System.Drawing.Size(803, 201);
+            this.descLabel.Size = new System.Drawing.Size(937, 231);
             this.descLabel.TabIndex = 0;
             this.descLabel.Text = resources.GetString("descLabel.Text");
             this.descLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // aboutDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            //this.BackgroundImage = global::HW5.Properties.Resources.headphones;
-            this.ClientSize = new System.Drawing.Size(803, 432);
+            this.ClientSize = new System.Drawing.Size(937, 498);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(2);

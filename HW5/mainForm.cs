@@ -8,7 +8,7 @@ namespace HW5
 {
     public partial class mainForm : Form
     {
-        private ArrayList file = new ArrayList();
+        //private ArrayList file = new ArrayList();
         private string fileName = "";
         private bool edited = false;
         public Features features = new Features();
@@ -20,53 +20,57 @@ namespace HW5
 
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            textBox.Text = "";
-            file.Clear();
-            fileName = "";
+            if (edited == true)
+            {
+                var res = MessageBox.Show("Do you want to save changes?", "Changes detected!", MessageBoxButtons.YesNoCancel);
+
+                if (res == DialogResult.Yes)
+                {
+                    saveAsToolStripMenuItem_Click(sender, e);
+                }
+                else if (res == DialogResult.No)
+                {
+                    Features newfeatures = new Features();
+                    features = newfeatures;
+                    textBox.Text = features.text;
+                    statusLabel.Text = "New document created.";
+                    this.Text = "New Document";
+                }
+            }
+
+            //textBox.Text = "";
+            //file.Clear();
+            //fileName = "";
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            file.Clear();
             if (fileName == "")
             {
                 saveAsToolStripMenuItem_Click(sender, e);
             }
             else
             {
-                string[] allLines = textBox.Text.Split('\n');
-                foreach (string text in allLines)
-                {
-                    file.Add(text);
-                }
-                
+                features.text = textBox.Text;
                 serializer();
             }
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            file.Clear();
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "soap files|*.soap";
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 fileName = saveFileDialog.FileName;
-                //string extension = Path.GetExtension(fileName);
-                string[] allLines = textBox.Text.Split('\n');
-                foreach (string text in allLines)
-                {
-                    file.Add(text);
-                }
-                serializer();
             }
+
+            saveToolStripMenuItem_Click(sender, e);
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            file.Clear();
-
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
             if (openFileDialog.ShowDialog() == DialogResult.OK) {
@@ -75,7 +79,12 @@ namespace HW5
                 try
                 {
                     SoapFormatter formatter = new SoapFormatter();
-                    file = (ArrayList)formatter.Deserialize(fs);
+                    Features newfeatures = (Features)formatter.Deserialize(fs);
+                    features = newfeatures;
+                    loadFeatures(features);
+                    textBox.Text = features.text;
+                    statusLabel.Text = fileName + " was opened.";
+                    this.Text = fileName;
                 }
                 catch (SerializationException er)
                 {
@@ -85,12 +94,6 @@ namespace HW5
                 finally
                 {
                     fs.Close();
-                }
-
-                this.textBox.Clear();
-                foreach (string s in file)
-                {
-                    textBox.Text += s + Environment.NewLine;
                 }
             }
         }
@@ -102,7 +105,11 @@ namespace HW5
 
             try
             {
-                formatter.Serialize(fs, file);
+                features.Size = new Size(this.Size.Width, this.Size.Height);
+                features.Location = new Point(this.Location.X, this.Location.Y);
+                features.textFont = textBox.Font;
+                formatter.Serialize(fs, features);
+                statusLabel.Text = fileName + " was saved.";
             }
             catch (SerializationException er)
             {
@@ -170,6 +177,9 @@ namespace HW5
             textBox.ForeColor = e.passedTextBoxBase.ForeColor;
             textBox.BackColor = e.passedTextBoxBase.BackColor;
             textBox.Font = e.passedFont;
+            features.textColor = e.passedTextBoxBase.ForeColor;
+            features.textBackColor = e.passedTextBoxBase.BackColor;
+            features.textFont = e.passedFont;
         }
 
         private void mainForm_Load(object sender, EventArgs e)
@@ -187,8 +197,16 @@ namespace HW5
             this.Text = theFeatures.textTitle;
         }
 
+        private void oathToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            oathDialog oath = new oathDialog();
+            oath.ShowDialog();
+        }
 
-
-
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            aboutDialog about = new aboutDialog();
+            about.ShowDialog();
+        }
     }
 }
