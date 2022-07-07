@@ -8,7 +8,6 @@ namespace HW5
 {
     public partial class mainForm : Form
     {
-        //private ArrayList file = new ArrayList();
         private string fileName = "";
         private bool edited = false;
         public Features features = new Features();
@@ -37,10 +36,6 @@ namespace HW5
                     this.Text = "New Document";
                 }
             }
-
-            //textBox.Text = "";
-            //file.Clear();
-            //fileName = "";
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -64,9 +59,9 @@ namespace HW5
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 fileName = saveFileDialog.FileName;
+                features.text = textBox.Text;
+                serializer();
             }
-
-            saveToolStripMenuItem_Click(sender, e);
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
