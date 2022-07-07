@@ -18,7 +18,7 @@ namespace HW5
         public Font textFont { get; set; } = SystemFonts.DefaultFont;
         public Size Size { get; set; } = new Size(900, 800);
         public Point Location { get; set; } = new Point(100, 50);
-        public String textTitle { get; set; } = "Untitled - Notepad";
+        public String textTitle { get; set; } = "Untitled - Letterpad";
         public String text { get; set; } = "";
     }
 }

@@ -108,8 +108,9 @@ namespace HW5
                 features.Size = new Size(this.Size.Width, this.Size.Height);
                 features.Location = new Point(this.Location.X, this.Location.Y);
                 features.textFont = textBox.Font;
+                features.textTitle = fileName;
                 formatter.Serialize(fs, features);
-                statusLabel.Text = fileName + " was saved.";
+                statusLabel.Text = fileName + " was saved.  " + DateTime.Now.ToString();
             }
             catch (SerializationException er)
             {
