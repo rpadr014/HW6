@@ -93,6 +93,7 @@
             | System.Windows.Forms.Keys.N)));
             this.newWindowToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.newWindowToolStripMenuItem.Text = "New Window";
+            this.newWindowToolStripMenuItem.Click += new System.EventHandler(this.NewWindowToolStripMenuItem_Click);
             // 
             // newFileToolStripMenuItem
             // 
