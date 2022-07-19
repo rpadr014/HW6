@@ -55,6 +55,19 @@
             this.cutToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.copyToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.pasteToolStripButton = new System.Windows.Forms.ToolStripButton();
+
+            // Paint items
+            this.pictureBox = new PictureBox();
+            this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox.Location = new System.Drawing.Point(0, 51);
+            this.pictureBox.Size = new System.Drawing.Size(2000, 1000);
+            this.pictureBox.MouseDown += PictureBox_MouseDown;
+
+            this.bitmap = new Bitmap(this.pictureBox.Width, this.pictureBox.Height);
+            this.graphics = Graphics.FromImage(bitmap);
+            this.graphics.Clear(Color.White);
+            this.pictureBox.Image = bitmap;
+
             this.mainMenu.SuspendLayout();
             this.mainStatusStrip.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -305,7 +318,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.textBox);
+            // this.Controls.Add(this.textBox);
+            this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.mainStatusStrip);
             this.Controls.Add(this.mainMenu);
@@ -323,6 +337,15 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+
+        private void PictureBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            px = e.Location;
+            this.graphics.DrawLine(p, px, py);
+            py = px;
+            this.pictureBox.Refresh();
         }
 
         private void NewWindowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -377,9 +400,17 @@
         private ToolStripButton cutToolStripButton;
         private ToolStripButton copyToolStripButton;
         private ToolStripButton pasteToolStripButton;
+        private PictureBox pictureBox;
         private ToolStripMenuItem propertiesToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem oathToolStripMenuItem;
         private ToolStripMenuItem aboutToolStripMenuItem;
+
+
+        // Paint items
+        private Bitmap bitmap;
+        private Graphics graphics;
+        private Point px, py;
+        private Pen p = new Pen(Color.Black, 1);
     }
 }
