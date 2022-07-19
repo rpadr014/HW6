@@ -16,8 +16,8 @@ namespace HW5
         {
 
         }
-        public PenType PenType { get; set; }
-        public BrushType BrushType { get; set; }
+        public PenType PenType { get; set; } = PenType.Solid;
+        public BrushType BrushType { get; set; } = BrushType.Solid;
         public Size Size { get; set; } = new Size(900, 800);
         public Point Location { get; set; } = new Point(100, 50);
         public String textTitle { get; set; } = "Untitled - ShapePad";
