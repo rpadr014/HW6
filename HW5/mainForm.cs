@@ -10,7 +10,7 @@ namespace HW5
     {
         private string fileName = "";
         private bool edited = false;
-        public Features features = new Features();
+        public Shape features = new Shape();
 
         public mainForm()
         {
@@ -29,9 +29,8 @@ namespace HW5
                 }
                 else if (res == DialogResult.No)
                 {
-                    Features newfeatures = new Features();
+                    Shape newfeatures = new Shape();
                     features = newfeatures;
-                    textBox.Text = features.text;
                     statusLabel.Text = "New document created.";
                     this.Text = "New Document";
                 }
@@ -46,7 +45,6 @@ namespace HW5
             }
             else
             {
-                features.text = textBox.Text;
                 serializer();
             }
         }
@@ -59,7 +57,6 @@ namespace HW5
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 fileName = saveFileDialog.FileName;
-                features.text = textBox.Text;
                 serializer();
             }
         }
@@ -74,10 +71,9 @@ namespace HW5
                 try
                 {
                     SoapFormatter formatter = new SoapFormatter();
-                    Features newfeatures = (Features)formatter.Deserialize(fs);
+                    Shape newfeatures = (Shape)formatter.Deserialize(fs);
                     features = newfeatures;
                     loadFeatures(features);
-                    textBox.Text = features.text;
                     statusLabel.Text = fileName + " was opened.";
                     this.Text = fileName;
                 }
@@ -102,7 +98,6 @@ namespace HW5
             {
                 features.Size = new Size(this.Size.Width, this.Size.Height);
                 features.Location = new Point(this.Location.X, this.Location.Y);
-                features.textFont = textBox.Font;
                 features.textTitle = fileName;
                 formatter.Serialize(fs, features);
                 statusLabel.Text = fileName + " was saved.  " + DateTime.Now.ToString();
@@ -173,9 +168,6 @@ namespace HW5
             textBox.ForeColor = e.passedTextBoxBase.ForeColor;
             textBox.BackColor = e.passedTextBoxBase.BackColor;
             textBox.Font = e.passedFont;
-            features.textColor = e.passedTextBoxBase.ForeColor;
-            features.textBackColor = e.passedTextBoxBase.BackColor;
-            features.textFont = e.passedFont;
         }
 
         private void mainForm_Load(object sender, EventArgs e)
@@ -183,11 +175,11 @@ namespace HW5
             loadFeatures(features);
         }
 
-        private void loadFeatures(Features theFeatures)
+        private void loadFeatures(Shape theFeatures)
         {
-            this.textBox.ForeColor = theFeatures.textColor;
-            this.textBox.BackColor = theFeatures.textBackColor;
-            this.textBox.Font = theFeatures.textFont;
+            //this.textBox.ForeColor = theFeatures.textColor;
+            //this.textBox.BackColor = theFeatures.textBackColor;
+            //this.textBox.Font = theFeatures.textFont;
             this.Size = theFeatures.Size;
             this.Location = theFeatures.Location;
             this.Text = theFeatures.textTitle;
