@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HW5ControlLibrary\HW5ControlLibrary.csproj" />
+    <ProjectReference Include="..\HW5ControlLibrary\HW6ControlLibrary.csproj" />
   </ItemGroup>
 
 </Project>
