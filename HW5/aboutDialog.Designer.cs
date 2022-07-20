@@ -38,6 +38,7 @@ namespace HW5
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(aboutDialog));
             this.panel1 = new System.Windows.Forms.Panel();
             this.descLabel = new System.Windows.Forms.Label();
+            this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,10 +47,10 @@ namespace HW5
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.descLabel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 66);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.panel1.Location = new System.Drawing.Point(0, 110);
+            this.panel1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(937, 231);
+            this.panel1.Size = new System.Drawing.Size(1339, 385);
             this.panel1.TabIndex = 3;
             // 
             // descLabel
@@ -59,21 +60,25 @@ namespace HW5
             this.descLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.descLabel.ForeColor = System.Drawing.Color.Black;
             this.descLabel.Location = new System.Drawing.Point(0, 0);
-            this.descLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.descLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.descLabel.Name = "descLabel";
-            this.descLabel.Size = new System.Drawing.Size(937, 231);
+            this.descLabel.Size = new System.Drawing.Size(1339, 385);
             this.descLabel.TabIndex = 0;
             this.descLabel.Text = resources.GetString("descLabel.Text");
             this.descLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // fontDialog1
+            // 
+            this.fontDialog1.Apply += new System.EventHandler(this.fontDialog1_Apply);
+            // 
             // aboutDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(937, 498);
+            this.ClientSize = new System.Drawing.Size(1339, 830);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "aboutDialog";
@@ -89,5 +94,6 @@ namespace HW5
 
         private Panel panel1;
         private Label descLabel;
+        private FontDialog fontDialog1;
     }
 }

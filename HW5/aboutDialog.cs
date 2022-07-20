@@ -16,5 +16,10 @@ namespace HW5
         {
             InitializeComponent();
         }
+
+        private void fontDialog1_Apply(object sender, EventArgs e)
+        {
+
+        }
     }
 }
