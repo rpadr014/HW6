@@ -16,4 +16,8 @@
     <ProjectReference Include="..\HW5ControlLibrary\HW6ControlLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="shapeDialog.cs" />
+  </ItemGroup>
+
 </Project>

@@ -44,6 +44,7 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.shapeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textBox = new System.Windows.Forms.TextBox();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
@@ -94,6 +95,7 @@
             this.openToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
+            this.shapeToolStripMenuItem,
             this.propertiesToolStripMenuItem});
             this.openFileToolStripMenuItem.Name = "openFileToolStripMenuItem";
             this.openFileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -147,6 +149,14 @@
             this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.propertiesToolStripMenuItem.Text = "Properties";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
+
+            // 
+            // shapeToolStripMenuItem
+            // 
+            this.shapeToolStripMenuItem.Name = "shapeToolStripMenuItem";
+            this.shapeToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.shapeToolStripMenuItem.Text = "Shape";
+            this.shapeToolStripMenuItem.Click += ShapeToolStripMenuItem_Click;
             // 
             // editToolStripMenuItem
             // 
@@ -312,6 +322,10 @@
             this.pasteToolStripButton.Size = new System.Drawing.Size(24, 24);
             this.pasteToolStripButton.Text = "&Paste";
             this.pasteToolStripButton.Click += new System.EventHandler(this.PasteToolStripMenuItem_Click);
+            //
+            // shapeDialog
+            //
+            this.shapeDialog = new ShapeDialog();
             // 
             // mainForm
             // 
@@ -339,6 +353,10 @@
 
         }
 
+        private void ShapeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.shapeDialog.ShowDialog();
+        }
 
         private void PictureBox_MouseDown(object sender, MouseEventArgs e)
         {
@@ -402,9 +420,11 @@
         private ToolStripButton pasteToolStripButton;
         private PictureBox pictureBox;
         private ToolStripMenuItem propertiesToolStripMenuItem;
+        private ToolStripMenuItem shapeToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem oathToolStripMenuItem;
         private ToolStripMenuItem aboutToolStripMenuItem;
+        private ShapeDialog shapeDialog;
 
 
         // Paint items
