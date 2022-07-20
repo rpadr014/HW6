@@ -196,5 +196,38 @@ namespace HW5
             aboutDialog about = new aboutDialog();
             about.ShowDialog();
         }
+
+        private void compoundToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((ToolStripMenuItem)compoundToolStripMenuItem).Checked = true;
+            if (compoundToolStripMenuItem.Checked)
+            {
+                solidToolStripMenuItem.Checked = false;
+                customDashedToolStripMenuItem.Checked = false;
+                features.PenType = PenType.Compound;
+            }
+        }
+
+        private void solidToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((ToolStripMenuItem)solidToolStripMenuItem).Checked = true;
+            if (solidToolStripMenuItem.Checked)
+            {
+                compoundToolStripMenuItem.Checked = false;
+                customDashedToolStripMenuItem.Checked = false;
+                features.PenType = PenType.Solid;
+            }
+        }
+
+        private void customDashedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((ToolStripMenuItem)customDashedToolStripMenuItem).Checked= true;
+            if (customDashedToolStripMenuItem.Checked)
+            {
+                compoundToolStripMenuItem.Checked = false;
+                solidToolStripMenuItem.Checked = false;
+                features.PenType = PenType.CustomDashed;
+            }
+        }
     }
 }
