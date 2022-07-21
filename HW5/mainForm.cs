@@ -196,5 +196,71 @@ namespace HW5
             aboutDialog about = new aboutDialog();
             about.ShowDialog();
         }
+
+        private void solidToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            solidToolStripMenuItem.Checked = true;
+            if (solidToolStripMenuItem.Checked)
+            {
+                compoundToolStripMenuItem.Checked = false;
+                customToolStripMenuItem.Checked = false;
+                features.PenType = PenType.Solid;
+            }
+        }
+
+        private void compoundToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            compoundToolStripMenuItem.Checked = true;
+            if (compoundToolStripMenuItem.Checked)
+            {
+                solidToolStripMenuItem.Checked = false;
+                customToolStripMenuItem.Checked = false;
+                features.PenType = PenType.Compound;
+            }
+        }
+
+        private void customToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            customToolStripMenuItem.Checked = true;
+            if (customToolStripMenuItem.Checked)
+            {
+                solidToolStripMenuItem.Checked = false;
+                compoundToolStripMenuItem.Checked = false;
+                features.PenType = PenType.CustomDashed;
+            }
+        }
+
+        private void solidBrushToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            solidBrushToolStripMenuItem.Checked = true;
+            if (solidBrushToolStripMenuItem.Checked) 
+            {
+                hatchToolStripMenuItem.Checked = false;
+                linearGradientToolStripMenuItem.Checked = false;
+                features.BrushType = BrushType.Solid;
+            }
+        }
+
+        private void hatchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            hatchToolStripMenuItem.Checked = true;
+            if (hatchToolStripMenuItem.Checked) 
+            {
+                solidBrushToolStripMenuItem.Checked = false;
+                linearGradientToolStripMenuItem.Checked = false;
+                features.BrushType = BrushType.Hatch;
+            }
+        }
+
+        private void linearGradientToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            linearGradientToolStripMenuItem.Checked = true;
+            if (linearGradientToolStripMenuItem.Checked)
+            {
+                solidBrushToolStripMenuItem.Checked = false;
+                hatchToolStripMenuItem.Checked = false;
+                features.BrushType = BrushType.LinearGradient;
+            }
+        }
     }
 }
