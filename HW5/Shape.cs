@@ -9,7 +9,7 @@ namespace HW5
     [Serializable]
     public enum PenType { Solid, CustomDashed, Compound }
     public enum BrushType { Solid, Hatch, LinearGradient }
-    public enum ShapeType { Ellipse, Rectangle, Custom }
+    public enum ShapeType { Ellipse, Rectangle, Line, Custom } // Line is not required in assignment prompt
     public class Shape
     {
         public Shape()
