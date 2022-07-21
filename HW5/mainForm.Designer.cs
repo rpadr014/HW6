@@ -84,7 +84,7 @@
             this.mainMenu.SuspendLayout();
             this.mainStatusStrip.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -399,17 +399,10 @@
             this.pasteToolStripButton.Size = new System.Drawing.Size(34, 24);
             this.pasteToolStripButton.Text = "&Paste";
             this.pasteToolStripButton.Click += new System.EventHandler(this.PasteToolStripMenuItem_Click);
-            // 
-            // pictureBox
-            // 
-            this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox.Image")));
-            this.pictureBox.Location = new System.Drawing.Point(0, 64);
-            this.pictureBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(1143, 664);
-            this.pictureBox.TabIndex = 0;
-            this.pictureBox.TabStop = false;
+            //
+            // shapeDialog
+            //
+            //this.shapeDialog = new ShapeDialog();
             // 
             // mainForm
             // 
@@ -580,6 +573,7 @@
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem oathToolStripMenuItem;
         private ToolStripMenuItem aboutToolStripMenuItem;
+        private ShapeDialog shapeDialog;
 
 
         // Paint items
