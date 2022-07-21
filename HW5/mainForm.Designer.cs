@@ -37,12 +37,14 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.shapeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.shapeTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.penTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.penToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.solidToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compoundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.customDashedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.brushTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.customToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.brushToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.solidBrushToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.linearGradientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -92,6 +94,8 @@
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.shapeToolStripMenuItem,
+            this.penToolStripMenuItem,
+            this.brushToolStripMenuItem,
             this.propertiesToolStripMenuItem});
             this.openFileToolStripMenuItem.Name = "openFileToolStripMenuItem";
             this.openFileToolStripMenuItem.Size = new System.Drawing.Size(54, 29);
@@ -141,56 +145,72 @@
             // 
             // shapeToolStripMenuItem
             // 
-            this.shapeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.shapeTypeToolStripMenuItem,
-            this.penTypeToolStripMenuItem,
-            this.brushTypeToolStripMenuItem});
             this.shapeToolStripMenuItem.Name = "shapeToolStripMenuItem";
             this.shapeToolStripMenuItem.Size = new System.Drawing.Size(332, 34);
             this.shapeToolStripMenuItem.Text = "Shape";
+            this.shapeToolStripMenuItem.Click += new System.EventHandler(this.ShapeToolStripMenuItem_Click);
             // 
-            // shapeTypeToolStripMenuItem
+            // penToolStripMenuItem
             // 
-            this.shapeTypeToolStripMenuItem.Name = "shapeTypeToolStripMenuItem";
-            this.shapeTypeToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.shapeTypeToolStripMenuItem.Text = "Shape Type";
-            // 
-            // penTypeToolStripMenuItem
-            // 
-            this.penTypeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.penToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.solidToolStripMenuItem,
             this.compoundToolStripMenuItem,
-            this.customDashedToolStripMenuItem});
-            this.penTypeToolStripMenuItem.Name = "penTypeToolStripMenuItem";
-            this.penTypeToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.penTypeToolStripMenuItem.Text = "Pen Type";
+            this.customToolStripMenuItem});
+            this.penToolStripMenuItem.Name = "penToolStripMenuItem";
+            this.penToolStripMenuItem.Size = new System.Drawing.Size(332, 34);
+            this.penToolStripMenuItem.Text = "Pen";
             // 
             // solidToolStripMenuItem
             // 
             this.solidToolStripMenuItem.Name = "solidToolStripMenuItem";
-            this.solidToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.solidToolStripMenuItem.Size = new System.Drawing.Size(241, 34);
             this.solidToolStripMenuItem.Text = "Solid";
             this.solidToolStripMenuItem.Click += new System.EventHandler(this.solidToolStripMenuItem_Click);
             // 
             // compoundToolStripMenuItem
             // 
             this.compoundToolStripMenuItem.Name = "compoundToolStripMenuItem";
-            this.compoundToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.compoundToolStripMenuItem.Size = new System.Drawing.Size(241, 34);
             this.compoundToolStripMenuItem.Text = "Compound";
             this.compoundToolStripMenuItem.Click += new System.EventHandler(this.compoundToolStripMenuItem_Click);
             // 
-            // customDashedToolStripMenuItem
+            // customToolStripMenuItem
             // 
-            this.customDashedToolStripMenuItem.Name = "customDashedToolStripMenuItem";
-            this.customDashedToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.customDashedToolStripMenuItem.Text = "Custom Dashed";
-            this.customDashedToolStripMenuItem.Click += new System.EventHandler(this.customDashedToolStripMenuItem_Click);
+            this.customToolStripMenuItem.Name = "customToolStripMenuItem";
+            this.customToolStripMenuItem.Size = new System.Drawing.Size(241, 34);
+            this.customToolStripMenuItem.Text = "Custom Dashed";
+            this.customToolStripMenuItem.Click += new System.EventHandler(this.customToolStripMenuItem_Click);
             // 
-            // brushTypeToolStripMenuItem
+            // brushToolStripMenuItem
             // 
-            this.brushTypeToolStripMenuItem.Name = "brushTypeToolStripMenuItem";
-            this.brushTypeToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.brushTypeToolStripMenuItem.Text = "Brush Type";
+            this.brushToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.solidBrushToolStripMenuItem,
+            this.hatchToolStripMenuItem,
+            this.linearGradientToolStripMenuItem});
+            this.brushToolStripMenuItem.Name = "brushToolStripMenuItem";
+            this.brushToolStripMenuItem.Size = new System.Drawing.Size(332, 34);
+            this.brushToolStripMenuItem.Text = "Brush";
+            // 
+            // solidBrushToolStripMenuItem
+            // 
+            this.solidBrushToolStripMenuItem.Name = "solidBrushToolStripMenuItem";
+            this.solidBrushToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.solidBrushToolStripMenuItem.Text = "Solid";
+            this.solidBrushToolStripMenuItem.Click += new System.EventHandler(this.solidBrushToolStripMenuItem_Click);
+            // 
+            // hatchToolStripMenuItem
+            // 
+            this.hatchToolStripMenuItem.Name = "hatchToolStripMenuItem";
+            this.hatchToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.hatchToolStripMenuItem.Text = "Hatch";
+            this.hatchToolStripMenuItem.Click += new System.EventHandler(this.hatchToolStripMenuItem_Click);
+            // 
+            // linearGradientToolStripMenuItem
+            // 
+            this.linearGradientToolStripMenuItem.Name = "linearGradientToolStripMenuItem";
+            this.linearGradientToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.linearGradientToolStripMenuItem.Text = "Linear Gradient";
+            this.linearGradientToolStripMenuItem.Click += new System.EventHandler(this.linearGradientToolStripMenuItem_Click);
             // 
             // propertiesToolStripMenuItem
             // 
@@ -480,11 +500,13 @@
         private Graphics graphics;
         private Point px, py;
         private Pen p = new Pen(Color.Black, 1);
-        private ToolStripMenuItem shapeTypeToolStripMenuItem;
-        private ToolStripMenuItem penTypeToolStripMenuItem;
+        private ToolStripMenuItem penToolStripMenuItem;
         private ToolStripMenuItem solidToolStripMenuItem;
         private ToolStripMenuItem compoundToolStripMenuItem;
-        private ToolStripMenuItem brushTypeToolStripMenuItem;
-        private ToolStripMenuItem customDashedToolStripMenuItem;
+        private ToolStripMenuItem customToolStripMenuItem;
+        private ToolStripMenuItem brushToolStripMenuItem;
+        private ToolStripMenuItem solidBrushToolStripMenuItem;
+        private ToolStripMenuItem hatchToolStripMenuItem;
+        private ToolStripMenuItem linearGradientToolStripMenuItem;
     }
 }
