@@ -10,11 +10,24 @@ namespace HW5
     {
         private string fileName = "";
         private bool edited = false;
-        public Shape features = new Shape();
+        public Shape shape = new Shape();
+        //private Bitmap bitmap = new Bitmap();
+        private Graphics g;
+        private Point startPos, currentPos;
+        private Boolean paint;
 
         public mainForm()
         {
             InitializeComponent();
+        }
+
+        private Rectangle getRectangle()
+        {
+            return new Rectangle(
+                Math.Min(startPos.X, currentPos.X),
+                Math.Min(startPos.Y, currentPos.Y),
+                Math.Abs(startPos.X - currentPos.X),
+                Math.Abs(startPos.Y - currentPos.Y));
         }
 
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -30,7 +43,7 @@ namespace HW5
                 else if (res == DialogResult.No)
                 {
                     Shape newfeatures = new Shape();
-                    features = newfeatures;
+                    shape = newfeatures;
                     statusLabel.Text = "New document created.";
                     this.Text = "New Document";
                 }
@@ -65,15 +78,16 @@ namespace HW5
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK) {
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
                 fileName = openFileDialog.FileName;
                 FileStream fs = new FileStream(fileName, FileMode.Open);
                 try
                 {
                     SoapFormatter formatter = new SoapFormatter();
                     Shape newfeatures = (Shape)formatter.Deserialize(fs);
-                    features = newfeatures;
-                    loadFeatures(features);
+                    shape = newfeatures;
+                    loadFeatures(shape);
                     statusLabel.Text = fileName + " was opened.";
                     this.Text = fileName;
                 }
@@ -96,10 +110,10 @@ namespace HW5
 
             try
             {
-                features.Size = new Size(this.Size.Width, this.Size.Height);
-                features.Location = new Point(this.Location.X, this.Location.Y);
-                features.textTitle = fileName;
-                formatter.Serialize(fs, features);
+                shape.Size = new Size(this.Size.Width, this.Size.Height);
+                shape.Location = new Point(this.Location.X, this.Location.Y);
+                shape.textTitle = fileName;
+                formatter.Serialize(fs, shape);
                 statusLabel.Text = fileName + " was saved.  " + DateTime.Now.ToString();
             }
             catch (SerializationException er)
@@ -141,7 +155,7 @@ namespace HW5
 
         private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(edited == true)
+            if (edited == true)
             {
                 var res = MessageBox.Show("Do you want to save changes?", "Changes detected!", MessageBoxButtons.YesNoCancel);
 
@@ -149,7 +163,7 @@ namespace HW5
                 {
                     saveAsToolStripMenuItem_Click(sender, e);
                 }
-                else if(res == DialogResult.Cancel)
+                else if (res == DialogResult.Cancel)
                 {
                     e.Cancel = true;
                 }
@@ -172,7 +186,7 @@ namespace HW5
 
         private void mainForm_Load(object sender, EventArgs e)
         {
-            loadFeatures(features);
+            loadFeatures(shape);
         }
 
         private void loadFeatures(Shape theFeatures)
@@ -204,7 +218,7 @@ namespace HW5
             {
                 compoundToolStripMenuItem.Checked = false;
                 customToolStripMenuItem.Checked = false;
-                features.PenType = PenType.Solid;
+                shape.PenType = PenType.Solid;
             }
         }
 
@@ -215,7 +229,7 @@ namespace HW5
             {
                 solidToolStripMenuItem.Checked = false;
                 customToolStripMenuItem.Checked = false;
-                features.PenType = PenType.Compound;
+                shape.PenType = PenType.Compound;
             }
         }
 
@@ -226,29 +240,29 @@ namespace HW5
             {
                 solidToolStripMenuItem.Checked = false;
                 compoundToolStripMenuItem.Checked = false;
-                features.PenType = PenType.CustomDashed;
+                shape.PenType = PenType.CustomDashed;
             }
         }
 
         private void solidBrushToolStripMenuItem_Click(object sender, EventArgs e)
         {
             solidBrushToolStripMenuItem.Checked = true;
-            if (solidBrushToolStripMenuItem.Checked) 
+            if (solidBrushToolStripMenuItem.Checked)
             {
                 hatchToolStripMenuItem.Checked = false;
                 linearGradientToolStripMenuItem.Checked = false;
-                features.BrushType = BrushType.Solid;
+                shape.BrushType = BrushType.Solid;
             }
         }
 
         private void hatchToolStripMenuItem_Click(object sender, EventArgs e)
         {
             hatchToolStripMenuItem.Checked = true;
-            if (hatchToolStripMenuItem.Checked) 
+            if (hatchToolStripMenuItem.Checked)
             {
                 solidBrushToolStripMenuItem.Checked = false;
                 linearGradientToolStripMenuItem.Checked = false;
-                features.BrushType = BrushType.Hatch;
+                shape.BrushType = BrushType.Hatch;
             }
         }
 
@@ -259,7 +273,59 @@ namespace HW5
             {
                 solidBrushToolStripMenuItem.Checked = false;
                 hatchToolStripMenuItem.Checked = false;
-                features.BrushType = BrushType.LinearGradient;
+                shape.BrushType = BrushType.LinearGradient;
+            }
+        }
+
+        private void pictureBox_Paint_1(object sender, PaintEventArgs e)
+        {
+            g = e.Graphics;
+            if (paint)
+            {
+                if (shape.ShapeType == ShapeType.Ellipse)
+                {
+                    //g.DrawEllipse(shape.Pen, cx, cy, sX, sY);
+                }
+                if (shape.ShapeType == ShapeType.Rectangle)
+                {
+                    Rectangle r = getRectangle();
+                    g.DrawRectangle(shape.Pen, r);
+                }
+            }
+        }
+
+        private void pictureBox_MouseUp_1(object sender, MouseEventArgs e)
+        {
+            paint = false;
+
+            if (shape.ShapeType == ShapeType.Ellipse)
+            {
+                //g.DrawEllipse(shape.Pen, cx, cy, sX, sY);
+            }
+            if (shape.ShapeType == ShapeType.Rectangle)
+            {
+                //g.DrawRectangle(shape.Pen, r);
+            }
+            //this.pictureBox.Invalidate();
+        }
+
+        private void rectangleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            shape.ShapeType = ShapeType.Rectangle;
+        }
+
+        private void pictureBox_MouseDown_1(object sender, MouseEventArgs e)
+        {
+            paint = true;
+            currentPos = startPos = e.Location;
+        }
+
+        private void pictureBox_MouseMove_1(object sender, MouseEventArgs e)
+        {
+            currentPos = e.Location;
+            if (paint)
+            {
+                this.pictureBox.Invalidate();
             }
         }
     }
