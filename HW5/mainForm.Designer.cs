@@ -64,7 +64,23 @@
             this.cutToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.copyToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.pasteToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.pictureBox = new System.Windows.Forms.PictureBox();
+
+
+            // Paint items
+            this.pictureBox = new PictureBox();
+            this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox.Location = new System.Drawing.Point(0, 51);
+            this.pictureBox.Size = new System.Drawing.Size(2000, 1000);
+            this.pictureBox.MouseDown += PictureBox_MouseDown;
+            this.pictureBox.MouseMove += PictureBox_MouseMove;
+            this.pictureBox.MouseUp += PictureBox_MouseUp;
+
+            this.bitmap = new Bitmap(this.pictureBox.Width, this.pictureBox.Height);
+            this.graphics = Graphics.FromImage(bitmap);
+            this.graphics.Clear(Color.White);
+            this.pictureBox.Image = bitmap;
+            this.pictureBox.Paint += PictureBox_Paint;
+
             this.mainMenu.SuspendLayout();
             this.mainStatusStrip.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -422,6 +438,50 @@
 
         }
 
+        private void PictureBox_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            if(this.paint)
+            {
+                if (this.shapeType == ShapeType.Ellipse)
+                {
+                    g.DrawEllipse(this.p, cx, cy, sX, sY);
+                }
+                if (this.shapeType == ShapeType.Rectangle)
+                {
+                    g.DrawRectangle(p, cx, cy, sX, sY);
+                }
+                if (this.shapeType == ShapeType.Line)
+                {
+                    g.DrawLine(this.p, cx, cy, x, y);
+                }
+            }
+
+
+        }
+
+        private void PictureBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.paint = false;
+
+            sX = x - cx;
+            sY = y - cy;
+
+            if (this.shapeType == ShapeType.Ellipse)
+            {
+                this.graphics.DrawEllipse(p, cx, cy, sX, sY);
+            }
+            if (this.shapeType == ShapeType.Rectangle)
+            {
+                this.graphics.DrawRectangle(p, cx, cy, sX, sY);
+            }
+            if (this.shapeType == ShapeType.Line)
+            {
+                this.graphics.DrawLine(p, cx, cy, x, y);
+            }
+
+        }
+
         private void ShapeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.shapeDialog.ShowDialog();
@@ -429,10 +489,37 @@
 
         private void PictureBox_MouseDown(object sender, MouseEventArgs e)
         {
-            px = e.Location;
-            this.graphics.DrawLine(p, px, py);
-            py = px;
+            this.paint = true;
+            py = e.Location;
+
+            this.cx = e.X;
+            this.cy = e.Y;
+            
+
+            //this.graphics.DrawLine(p, px, py);
+            //py = px;
+            //this.pictureBox.Refresh();
+        }
+
+        private void PictureBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            if(paint)
+            {
+                if (shapeType == ShapeType.Custom)
+                {
+                    px = e.Location;
+                    this.graphics.DrawLine(p, px, py);
+                    this.py = px;
+                }
+            }
+
             this.pictureBox.Refresh();
+
+            x = e.X;
+            y = e.Y;
+            sX = e.X - cx;
+            sY = e.Y - cy;
+
         }
 
         private void NewWindowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -499,7 +586,11 @@
         private Bitmap bitmap;
         private Graphics graphics;
         private Point px, py;
+        private int cx, cy, x, y, sX, sY;
         private Pen p = new Pen(Color.Black, 1);
+        private Boolean paint;
+        private ShapeType shapeType = ShapeType.Rectangle;
+
         private ToolStripMenuItem penToolStripMenuItem;
         private ToolStripMenuItem solidToolStripMenuItem;
         private ToolStripMenuItem compoundToolStripMenuItem;
@@ -508,5 +599,6 @@
         private ToolStripMenuItem solidBrushToolStripMenuItem;
         private ToolStripMenuItem hatchToolStripMenuItem;
         private ToolStripMenuItem linearGradientToolStripMenuItem;
+
     }
 }
