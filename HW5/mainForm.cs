@@ -331,8 +331,19 @@ namespace HW5
 
         private void pictureBox_MouseDown_1(object sender, MouseEventArgs e)
         {
-            paint = true;
-            currentPos = startPos = e.Location;
+            if(e.Button == MouseButtons.Left)
+            {
+                paint = true;
+                currentPos = startPos = e.Location;
+            }
+            else if(e.Button == MouseButtons.Right)
+            {
+                if(shape.Contains(e.Location))
+                {
+                    this.graphics.FillRectangle();
+                }
+            }
+
         }
 
         private void pictureBox_MouseMove_1(object sender, MouseEventArgs e)

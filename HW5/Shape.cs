@@ -23,5 +23,10 @@ namespace HW5
         public Point Location { get; set; } = new Point(100, 50);
         public String textTitle { get; set; } = "Untitled - ShapePad";
         public Pen Pen = new Pen(Color.Black, 1);
+
+        public bool Contains(PointF point)
+        {
+            return point.X >= this.Location.X && point.X <= this.Location.X + this.Size.Width && point.Y >= this.Location.Y && point.Y <= this.Location.Y + this.Size.Height;
+        }
     }
 }
