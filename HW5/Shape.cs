@@ -19,14 +19,15 @@ namespace HW5
         public PenType PenType { get; set; } = PenType.Solid;
         public BrushType BrushType { get; set; } = BrushType.Solid;
         public ShapeType ShapeType { get; set; } = ShapeType.None;
-        public Size Size { get; set; } = new Size(900, 800);
-        public Point Location { get; set; } = new Point(100, 50);
+        public Size ShapeSize { get; set; } = new Size(900, 800);
+        public Point ShapeLocation { get; set; } = new Point(0,0);
         public String textTitle { get; set; } = "Untitled - ShapePad";
         public Pen Pen { get; set; } = new Pen(Color.Black, 1);
+        public SolidBrush SolidBrush { get; set; } = new SolidBrush(Color.FromArgb(255, 0, 0, 255));
 
         public bool Contains(PointF point)
         {
-            return point.X >= this.Location.X && point.X <= this.Location.X + this.Size.Width && point.Y >= this.Location.Y && point.Y <= this.Location.Y + this.Size.Height;
+            return point.X >= this.ShapeLocation.X && point.X <= this.ShapeLocation.X + this.ShapeSize.Width && point.Y >= this.ShapeLocation.Y && point.Y <= this.ShapeLocation.Y + this.ShapeSize.Height;
         }
     }
 }

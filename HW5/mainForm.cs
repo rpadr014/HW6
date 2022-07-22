@@ -12,9 +12,9 @@ namespace HW5
         private string fileName = "";
         private bool edited = false;
         public Shape shape = new Shape();
-        private Bitmap bitmap;
-        private Graphics graphics;
-        private Graphics g;
+        //private Bitmap bitmap;
+        //private Graphics graphics;
+        //private Graphics g;
         private Point startPos, currentPos;
         private Boolean paint;
         private Document doc = new Document();
@@ -22,8 +22,8 @@ namespace HW5
         public mainForm()
         {
             InitializeComponent();
-            this.bitmap = new Bitmap(this.pictureBox.Width, this.pictureBox.Height);
-            this.graphics = Graphics.FromImage(bitmap);
+            //this.bitmap = new Bitmap(this.pictureBox.Width, this.pictureBox.Height);
+            //this.graphics = Graphics.FromImage(bitmap);
         }
 
         private Rectangle getRectangle()
@@ -115,8 +115,8 @@ namespace HW5
 
             try
             {
-                shape.Size = new Size(this.Size.Width, this.Size.Height);
-                shape.Location = new Point(this.Location.X, this.Location.Y);
+                shape.ShapeSize = new Size(this.Size.Width, this.Size.Height);
+                shape.ShapeLocation = new Point(this.Location.X, this.Location.Y);
                 shape.textTitle = fileName;
                 formatter.Serialize(fs, shape);
                 statusLabel.Text = fileName + " was saved.  " + DateTime.Now.ToString();
@@ -199,8 +199,8 @@ namespace HW5
             //this.textBox.ForeColor = theFeatures.textColor;
             //this.textBox.BackColor = theFeatures.textBackColor;
             //this.textBox.Font = theFeatures.textFont;
-            this.Size = theFeatures.Size;
-            this.Location = theFeatures.Location;
+            this.Size = theFeatures.ShapeSize;
+            this.Location = theFeatures.ShapeLocation;
             this.Text = theFeatures.textTitle;
         }
 
@@ -282,74 +282,79 @@ namespace HW5
             }
         }
 
-        private void pictureBox_Paint_1(object sender, PaintEventArgs e)
-        {
-            g = e.Graphics;
-            if (doc.rectangles.Count > 0) e.Graphics.DrawRectangles(shape.Pen, doc.rectangles.ToArray());
-
-            if (paint)
-            { 
-                if (shape.ShapeType == ShapeType.Rectangle)
-                {
-                    Rectangle r = getRectangle();
-                    g.DrawRectangle(shape.Pen, r);
-                }
-            }
-        }
-
-        private void pictureBox_MouseUp_1(object sender, MouseEventArgs e)
-        {
-            
-            
-            if(paint)
-            {
-                if (shape.ShapeType == ShapeType.Ellipse)
-                {
-                    //g.DrawEllipse(shape.Pen, cx, cy, sX, sY);
-                }
-                if (shape.ShapeType == ShapeType.Rectangle)
-                {
-                    Rectangle r = getRectangle();
-                    doc.rectangles.Add(r);
-                }
-            }
-            paint = false;
-
-            this.pictureBox.Invalidate();
-        }
-
         private void rectangleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             shape.ShapeType = ShapeType.Rectangle;
         }
 
-        private void pictureBox_MouseDown_1(object sender, MouseEventArgs e)
+        private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
-            if(e.Button == MouseButtons.Left)
+            for (int i=0; i<doc.savedShapes.Count; i++)
+            {
+                if (doc.savedShapes[i].ShapeType == ShapeType.Rectangle)
+                {
+                    //System.Diagnostics.Trace.WriteLine(doc.savedShapes[i].Pen + " " + doc.savedShapes[i].Location.X + " " + doc.savedShapes[i].Location.Y + " " + doc.savedShapes[i].Size.Width + " " + doc.savedShapes[i].Size.Height);
+                    if (doc.rectangles.Count > 0) e.Graphics.DrawRectangles(Pens.Black, doc.rectangles.ToArray());
+                    //e.Graphics.DrawRectangle(doc.savedShapes[i].Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y, doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
+                    //g.FillRectangle(doc.savedShapes[i].SolidBrush, doc.rectangles[i]);
+                }
+            }
+
+            if (paint)
+            {
+                if (shape.ShapeType == ShapeType.Rectangle)
+                {
+                    e.Graphics.DrawRectangle(shape.Pen, getRectangle());
+                }
+            }
+        }
+
+        private void pictureBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
             {
                 paint = true;
                 currentPos = startPos = e.Location;
             }
-            else if(e.Button == MouseButtons.Right)
+            else if (e.Button == MouseButtons.Right)
             {
-                if(shape.Contains(e.Location))
+
+                if (shape.Contains(e.Location))
                 {
-                    this.graphics.FillRectangle(new System.Drawing.SolidBrush(Color.FromArgb(128, 0, 0, 255)), shape.Location.X, shape.Location.Y, shape.Size.Width, shape.Size.Height);
-                    this.pictureBox.Refresh();
+                    //this.graphics.FillRectangle(new System.Drawing.SolidBrush(Color.FromArgb(128, 0, 0, 255)), doc.rectangles[0]);
+
+
                     ShapeDialog shapeDialog = new ShapeDialog();
                     shapeDialog.ShowDialog();
                 }
             }
-
         }
 
-        private void pictureBox_MouseMove_1(object sender, MouseEventArgs e)
+        private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             currentPos = e.Location;
             if (paint)
             {
-                this.pictureBox.Invalidate();
+                this.pictureBox.Refresh();
             }
+        }
+
+        private void pictureBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (paint)
+            {
+                if (shape.ShapeType == ShapeType.Rectangle)
+                {
+                    Rectangle r = getRectangle();
+                    shape.ShapeLocation = r.Location;
+                    shape.ShapeSize = r.Size;
+                    //System.Diagnostics.Trace.WriteLine("MouseUP "+shape.Pen+" "+shape.Location.X+" "+ shape.Location.Y+ " " + shape.Size.Width+ " " + shape.Size.Height);
+                    doc.rectangles.Add(r);
+                    doc.savedShapes.Add(shape);
+                }
+                this.pictureBox.Refresh();
+            }
+            paint = false;
         }
     }
 }
