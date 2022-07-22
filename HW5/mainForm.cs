@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Soap;
+using System.Drawing.Drawing2D;
 
 namespace HW5
 {
@@ -15,6 +16,10 @@ namespace HW5
         private Graphics graphics;
         private Point startPos, currentPos;
         private Boolean paint;
+        private Brush canvasBrush;
+        private Pen canvasPen;
+        private Boolean brushFlag;
+        private Boolean penFlag;
 
         public mainForm()
         {
@@ -218,6 +223,12 @@ namespace HW5
         private void solidToolStripMenuItem_Click(object sender, EventArgs e)
         {
             solidToolStripMenuItem.Checked = true;
+            compoundToolStripMenuItem.Checked = false;
+            customToolStripMenuItem.Checked = false;
+            solidBrushToolStripMenuItem.Checked = false;
+            hatchToolStripMenuItem.Checked = false;
+            linearGradientToolStripMenuItem.Checked = false;
+
             if (solidToolStripMenuItem.Checked)
             {
                 compoundToolStripMenuItem.Checked = false;
@@ -229,6 +240,12 @@ namespace HW5
         private void compoundToolStripMenuItem_Click(object sender, EventArgs e)
         {
             compoundToolStripMenuItem.Checked = true;
+            solidToolStripMenuItem.Checked = false;
+            customToolStripMenuItem.Checked = false;
+            solidBrushToolStripMenuItem.Checked = false;
+            hatchToolStripMenuItem.Checked = false;
+            linearGradientToolStripMenuItem.Checked = false;
+
             if (compoundToolStripMenuItem.Checked)
             {
                 solidToolStripMenuItem.Checked = false;
@@ -240,44 +257,76 @@ namespace HW5
         private void customToolStripMenuItem_Click(object sender, EventArgs e)
         {
             customToolStripMenuItem.Checked = true;
+            solidToolStripMenuItem.Checked = false;
+            compoundToolStripMenuItem.Checked = false;
+            solidBrushToolStripMenuItem.Checked = false;
+            hatchToolStripMenuItem.Checked = false;
+            linearGradientToolStripMenuItem.Checked = false;
+
             if (customToolStripMenuItem.Checked)
             {
                 solidToolStripMenuItem.Checked = false;
                 compoundToolStripMenuItem.Checked = false;
                 shape.PenType = PenType.CustomDashed;
+                penFlag = true;
+                brushFlag = false;
             }
         }
 
         private void solidBrushToolStripMenuItem_Click(object sender, EventArgs e)
         {
             solidBrushToolStripMenuItem.Checked = true;
+            solidToolStripMenuItem.Checked = false;
+            compoundToolStripMenuItem.Checked = false;
+            customToolStripMenuItem.Checked = false;
+            hatchToolStripMenuItem.Checked = false;
+            linearGradientToolStripMenuItem.Checked = false;
+
             if (solidBrushToolStripMenuItem.Checked)
             {
                 hatchToolStripMenuItem.Checked = false;
                 linearGradientToolStripMenuItem.Checked = false;
-                shape.BrushType = BrushType.Solid;
+                canvasPen = new Pen(new SolidBrush(Color.Blue), 10);
+                //shape.BrushType = BrushType.Solid;
+                brushFlag = true;
             }
         }
 
         private void hatchToolStripMenuItem_Click(object sender, EventArgs e)
         {
             hatchToolStripMenuItem.Checked = true;
+            solidToolStripMenuItem.Checked = false;
+            compoundToolStripMenuItem.Checked = false;
+            customToolStripMenuItem.Checked = false;
+            solidBrushToolStripMenuItem.Checked = false;
+            linearGradientToolStripMenuItem.Checked = false;
+
             if (hatchToolStripMenuItem.Checked)
             {
                 solidBrushToolStripMenuItem.Checked = false;
                 linearGradientToolStripMenuItem.Checked = false;
-                shape.BrushType = BrushType.Hatch;
+                canvasPen = new Pen(new HatchBrush(HatchStyle.Plaid,Color.Blue), 10);
+                //shape.BrushType = BrushType.Hatch;
+                brushFlag = true;
             }
         }
 
         private void linearGradientToolStripMenuItem_Click(object sender, EventArgs e)
         {
             linearGradientToolStripMenuItem.Checked = true;
+            solidToolStripMenuItem.Checked = false;
+            compoundToolStripMenuItem.Checked = false;
+            customToolStripMenuItem.Checked = false;
+            solidBrushToolStripMenuItem.Checked = false;
+            hatchToolStripMenuItem.Checked = false;
+
             if (linearGradientToolStripMenuItem.Checked)
             {
                 solidBrushToolStripMenuItem.Checked = false;
                 hatchToolStripMenuItem.Checked = false;
-                shape.BrushType = BrushType.LinearGradient;
+                canvasPen = new Pen(new LinearGradientBrush(new PointF(0,0),new PointF(0,5), Color.Red, Color.Bisque), 10);
+                //shape.BrushType = BrushType.LinearGradient;
+                brushFlag=true;
             }
         }
 
@@ -293,8 +342,10 @@ namespace HW5
                 if (shape.ShapeType == ShapeType.Rectangle)
                 {
                     Rectangle r = getRectangle();
-                    g.DrawRectangle(shape.Pen, r);
+                    g.DrawRectangle(canvasPen, r);
+                    //canvasPen.Dispose();
                 }
+                
             }
         }
 
@@ -311,7 +362,7 @@ namespace HW5
                 if (shape.ShapeType == ShapeType.Rectangle)
                 {
                     Rectangle r = getRectangle();
-                    graphics.DrawRectangle(shape.Pen, r);
+                    graphics.DrawRectangle(canvasPen, r);
                     shape = new Shape();
                     shape.Location = r.Location;
                     shape.Size = r.Size;
