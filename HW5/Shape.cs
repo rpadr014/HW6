@@ -22,7 +22,7 @@ namespace HW5
         public Size Size { get; set; } = new Size(900, 800);
         public Point Location { get; set; } = new Point(100, 50);
         public String textTitle { get; set; } = "Untitled - ShapePad";
-        public Pen Pen = new Pen(Color.Black, 1);
+        public Pen Pen { get; set; } = new Pen(Color.Black, 1);
 
         public bool Contains(PointF point)
         {

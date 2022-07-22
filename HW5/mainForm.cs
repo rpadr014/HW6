@@ -12,6 +12,8 @@ namespace HW5
         private string fileName = "";
         private bool edited = false;
         public Shape shape = new Shape();
+        private Bitmap bitmap;
+        private Graphics graphics;
         private Graphics g;
         private Point startPos, currentPos;
         private Boolean paint;
@@ -20,6 +22,8 @@ namespace HW5
         public mainForm()
         {
             InitializeComponent();
+            this.bitmap = new Bitmap(this.pictureBox.Width, this.pictureBox.Height);
+            this.graphics = Graphics.FromImage(bitmap);
         }
 
         private Rectangle getRectangle()
@@ -306,14 +310,9 @@ namespace HW5
                 if (shape.ShapeType == ShapeType.Rectangle)
                 {
                     Rectangle r = getRectangle();
-                    try
-                    {
-                        graphics.DrawRectangle(shape.Pen, r);
-                    } catch { }
-                   
+                    doc.rectangles.Add(r);
                 }
             }
-
             paint = false;
 
             this.pictureBox.Invalidate();
