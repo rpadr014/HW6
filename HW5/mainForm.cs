@@ -366,7 +366,8 @@ namespace HW5
                     if (rectangle.Contains(e.Location))
                     {
                         this.pictureBox.Invalidate();
-                        Graphics.FromImage(this.pictureBox.Image).FillRectangle(new SolidBrush(Color.FromArgb(128, 0, 0, 255)), rectangle);
+                        if (s.ShapeType == ShapeType.Rectangle) Graphics.FromImage(this.pictureBox.Image).FillRectangle(new SolidBrush(Color.FromArgb(128, 0, 0, 255)), rectangle);
+                        if (s.ShapeType == ShapeType.Ellipse) Graphics.FromImage(this.pictureBox.Image).FillEllipse(new SolidBrush(Color.FromArgb(128, 0, 0, 255)), rectangle);
                         this.pictureBox.Refresh();
                         ShapeDialog shapeDialog = new ShapeDialog();
                         shapeDialog.ShowDialog();
