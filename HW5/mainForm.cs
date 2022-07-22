@@ -271,6 +271,7 @@ namespace HW5
                 shape.PenType = PenType.CustomDashed;
                 penFlag = true;
                 brushFlag = false;
+                shape.Pen.DashPattern = new float[] { 4.0F, 2.0F, 1.0F, 3.0F }; 
             }
         }
 
@@ -356,6 +357,7 @@ namespace HW5
                 {
                     e.Graphics.DrawRectangle(shape.Pen, getRectangle());
                 }
+
             }
         }
 
@@ -391,6 +393,47 @@ namespace HW5
             if (paint)
             {
                 this.pictureBox.Refresh();
+            }
+        }
+
+        private void penColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog penCol = new ColorDialog();
+            if(penCol.ShowDialog() == DialogResult.OK)
+            {
+               shape.Pen.Color = penCol.Color;
+            }
+        }
+
+        private void brushColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog brushCol = new ColorDialog();
+            if(brushCol.ShowDialog() == DialogResult.OK)
+            {
+                shape.SolidBrush.Color = brushCol.Color;
+                shape.Pen = new Pen(shape.SolidBrush.Color, 1);
+            }
+        }
+
+        private void ellipseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ellipseToolStripMenuItem.Checked = true;
+            if (ellipseToolStripMenuItem.Checked)
+            {
+                rectangleToolStripMenuItem.Checked = false;
+                customToolStripMenuItem.Checked = false;
+                shape.ShapeType = ShapeType.Ellipse;
+            }
+        }
+
+        private void customToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            customToolStripMenuItem.Checked = true;
+            if (customToolStripMenuItem.Checked)
+            {
+                rectangleToolStripMenuItem.Checked = false;
+                ellipseToolStripMenuItem.Checked = false;
+                shape.ShapeType = ShapeType.Custom;
             }
         }
 
