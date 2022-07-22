@@ -28,8 +28,8 @@ namespace HW5
         private Rectangle getRectangle()
         {
             return new Rectangle(
-                startPos.X,
-                startPos.Y,
+                Math.Min(currentPos.X, startPos.X),
+                Math.Min(currentPos.Y, startPos.Y),
                 Math.Abs(startPos.X - currentPos.X),
                 Math.Abs(startPos.Y - currentPos.Y));
         }
@@ -311,11 +311,10 @@ namespace HW5
                 if (shape.ShapeType == ShapeType.Rectangle)
                 {
                     Rectangle r = getRectangle();
-                    try
-                    {
-                        graphics.DrawRectangle(shape.Pen, r);
-                    } catch { }
-                   
+                    graphics.DrawRectangle(shape.Pen, r);
+                    shape = new Shape();
+                    shape.Location = r.Location;
+                    shape.Size = r.Size;
                 }
             }
 
@@ -340,7 +339,7 @@ namespace HW5
             {
                 if(shape.Contains(e.Location))
                 {
-                    this.graphics.FillRectangle();
+                    this.graphics.FillRectangle(new System.Drawing.SolidBrush(Color.FromArgb(128, 0, 0, 255)), shape.Location.X, shape.Location.Y, shape.Size.Width, shape.Size.Height);
                 }
             }
 
