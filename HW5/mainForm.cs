@@ -3,7 +3,7 @@ using System.IO;
 using System.Collections;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Soap;
-using System.Drawing.Drawing2D;
+using HW6;
 
 namespace HW5
 {
@@ -14,27 +14,23 @@ namespace HW5
         public Shape shape = new Shape();
         private Bitmap bitmap;
         private Graphics graphics;
+        private Graphics g;
         private Point startPos, currentPos;
         private Boolean paint;
-        private Brush canvasBrush;
-        private Pen canvasPen;
-        private Boolean brushFlag;
-        private Boolean penFlag;
+        private Document doc = new Document();
 
         public mainForm()
         {
             InitializeComponent();
             this.bitmap = new Bitmap(this.pictureBox.Width, this.pictureBox.Height);
             this.graphics = Graphics.FromImage(bitmap);
-            this.graphics.Clear(Color.White);
-            this.pictureBox.Image = this.bitmap;
         }
 
         private Rectangle getRectangle()
         {
             return new Rectangle(
-                Math.Min(currentPos.X, startPos.X),
-                Math.Min(currentPos.Y, startPos.Y),
+                Math.Min(startPos.X, currentPos.X),
+                Math.Min(startPos.Y, currentPos.Y),
                 Math.Abs(startPos.X - currentPos.X),
                 Math.Abs(startPos.Y - currentPos.Y));
         }
@@ -332,13 +328,11 @@ namespace HW5
 
         private void pictureBox_Paint_1(object sender, PaintEventArgs e)
         {
-            Graphics g = e.Graphics;
+            g = e.Graphics;
+            if (doc.rectangles.Count > 0) e.Graphics.DrawRectangles(shape.Pen, doc.rectangles.ToArray());
+
             if (paint)
-            {
-                if (shape.ShapeType == ShapeType.Ellipse)
-                {
-                    //g.DrawEllipse(shape.Pen, cx, cy, sX, sY);
-                }
+            { 
                 if (shape.ShapeType == ShapeType.Rectangle)
                 {
                     Rectangle r = getRectangle();
@@ -362,16 +356,12 @@ namespace HW5
                 if (shape.ShapeType == ShapeType.Rectangle)
                 {
                     Rectangle r = getRectangle();
-                    graphics.DrawRectangle(canvasPen, r);
-                    shape = new Shape();
-                    shape.Location = r.Location;
-                    shape.Size = r.Size;
+                    doc.rectangles.Add(r);
                 }
             }
-
             paint = false;
 
-            //this.pictureBox.Invalidate();
+            this.pictureBox.Invalidate();
         }
 
         private void rectangleToolStripMenuItem_Click(object sender, EventArgs e)
@@ -404,9 +394,8 @@ namespace HW5
             currentPos = e.Location;
             if (paint)
             {
-                
+                this.pictureBox.Invalidate();
             }
-            this.pictureBox.Refresh();
         }
     }
 }
