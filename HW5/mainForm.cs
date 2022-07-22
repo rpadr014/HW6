@@ -340,6 +340,9 @@ namespace HW5
                 if(shape.Contains(e.Location))
                 {
                     this.graphics.FillRectangle(new System.Drawing.SolidBrush(Color.FromArgb(128, 0, 0, 255)), shape.Location.X, shape.Location.Y, shape.Size.Width, shape.Size.Height);
+                    this.pictureBox.Refresh();
+                    ShapeDialog shapeDialog = new ShapeDialog();
+                    shapeDialog.ShowDialog();
                 }
             }
 
