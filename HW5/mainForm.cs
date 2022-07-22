@@ -4,6 +4,7 @@ using System.Collections;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Soap;
 using HW6;
+using System.Drawing.Drawing2D;
 
 namespace HW5
 {
@@ -18,6 +19,10 @@ namespace HW5
         private Point startPos, currentPos;
         private Boolean paint;
         private Document doc = new Document();
+        private Brush canvasBrush;
+        private Pen canvasPen;
+        private Boolean brushFlag;
+        private Boolean penFlag;
 
         public mainForm()
         {
