@@ -322,6 +322,23 @@ namespace HW5
                     }
                         
                 }
+                else if (doc.savedShapes[i].ShapeType == ShapeType.Custom)
+                {
+                    if (doc.savedShapes[i].Pen == null)
+                    {
+                        e.Graphics.DrawRectangle(shape.Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
+                        e.Graphics.DrawEllipse(shape.Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
+                    }
+                    else
+                    {
+                        e.Graphics.DrawRectangle(doc.savedShapes[i].Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
+                        e.Graphics.DrawEllipse(doc.savedShapes[i].Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
+                    }
+                }
 
             }
 
@@ -333,6 +350,11 @@ namespace HW5
                 }
                 if (shape.ShapeType == ShapeType.Ellipse)
                 {
+                    e.Graphics.DrawEllipse(shape.Pen, getRectangle());
+                }
+                if (shape.ShapeType == ShapeType.Custom)
+                {
+                    e.Graphics.DrawRectangle(shape.Pen, getRectangle());
                     e.Graphics.DrawEllipse(shape.Pen, getRectangle());
                 }
             }
