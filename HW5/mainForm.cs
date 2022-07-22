@@ -52,10 +52,13 @@ namespace HW5
                 }
                 else if (res == DialogResult.No)
                 {
-                    Shape newfeatures = new Shape();
-                    shape = newfeatures;
+                    Shape newShapes = new Shape();
+                    shape = newShapes;
                     statusLabel.Text = "New document created.";
                     this.Text = "New Document";
+                    doc.rectangles.Clear();
+                    doc.savedShapes.Clear();
+                    this.pictureBox.Refresh();
                 }
             }
         }
@@ -138,31 +141,6 @@ namespace HW5
             }
         }
 
-        private void textBox_TextChanged(object sender, EventArgs e)
-        {
-            edited = true;
-            Point pt;
-
-            int line, col, index;
-
-            // get the current line
-            index = this.textBox.SelectionStart;
-            line = this.textBox.GetLineFromCharIndex(index);
-
-            // get the caret position in pixel coordinates
-            pt = this.textBox.GetPositionFromCharIndex(index);
-
-            // now get the character index at the start of the line, and
-            // subtract from the current index to get the column
-            pt.X = 0;
-            col = index - this.textBox.GetCharIndexFromPosition(pt);
-
-            // finally, update the display in the status bar, incrementing the line and
-            // column values so that the first line & first character position is
-            // shown as "1, 1"
-            this.statusLabel.Text = "Row: " + (++line).ToString() + ", Column: " + (++col).ToString();
-        }
-
         private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (edited == true)
@@ -178,20 +156,6 @@ namespace HW5
                     e.Cancel = true;
                 }
             }
-        }
-
-        private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            PropForm propForm = new PropForm(textBox, textBox.Font);
-            propForm.AddingNew += propForm_AddingNew;
-            propForm.Show();
-        }
-
-        private void propForm_AddingNew(object sender, AddingNewEventArgs e)
-        {
-            textBox.ForeColor = e.passedTextBoxBase.ForeColor;
-            textBox.BackColor = e.passedTextBoxBase.BackColor;
-            textBox.Font = e.passedFont;
         }
 
         private void mainForm_Load(object sender, EventArgs e)
@@ -339,6 +303,7 @@ namespace HW5
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
+            edited = true;
             for (int i = 0; i < doc.savedShapes.Count; i++)
             {
                 System.Diagnostics.Trace.WriteLine(i);
