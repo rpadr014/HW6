@@ -339,17 +339,23 @@ namespace HW5
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
-            for (int i=0; i<doc.savedShapes.Count; i++)
+            for (int i = 0; i < doc.savedShapes.Count; i++)
             {
+                System.Diagnostics.Trace.WriteLine(i);
                 if (doc.savedShapes[i].ShapeType == ShapeType.Rectangle)
                 {
                     //System.Diagnostics.Trace.WriteLine(doc.savedShapes[i].Pen + " " + doc.savedShapes[i].Location.X + " " + doc.savedShapes[i].Location.Y + " " + doc.savedShapes[i].Size.Width + " " + doc.savedShapes[i].Size.Height);
-                    if (doc.rectangles.Count > 0) e.Graphics.DrawRectangles(Pens.Black, doc.rectangles.ToArray());
-                    //e.Graphics.DrawRectangle(doc.savedShapes[i].Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y, doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
+
+                    e.Graphics.DrawRectangle(doc.savedShapes[i].Pen, doc.rectangles[i]);
                     //g.FillRectangle(doc.savedShapes[i].SolidBrush, doc.rectangles[i]);
                 }
-                
+                else if (doc.savedShapes[i].ShapeType == ShapeType.Ellipse)
+                {
+                    e.Graphics.DrawEllipse(doc.savedShapes[i].Pen, doc.rectangles[i]);
+                }
+
             }
+            //if (doc.rectangles.Count > 0) e.Graphics.DrawRectangles(shape.Pen, doc.rectangles.ToArray());
 
             if (paint)
             {
@@ -357,7 +363,10 @@ namespace HW5
                 {
                     e.Graphics.DrawRectangle(shape.Pen, getRectangle());
                 }
-
+                if (shape.ShapeType == ShapeType.Ellipse)
+                {
+                    e.Graphics.DrawEllipse(shape.Pen, getRectangle());
+                }
             }
         }
 
@@ -365,8 +374,8 @@ namespace HW5
         {
             if (e.Button == MouseButtons.Left)
             {
-                paint = true;
                 currentPos = startPos = e.Location;
+                paint = true;
             }
             else if (e.Button == MouseButtons.Right)
             {
@@ -392,7 +401,7 @@ namespace HW5
             currentPos = e.Location;
             if (paint)
             {
-                this.pictureBox.Refresh();
+                this.pictureBox.Invalidate();
             }
         }
 
@@ -441,16 +450,17 @@ namespace HW5
         {
             if (paint)
             {
-                if (shape.ShapeType == ShapeType.Rectangle)
-                {
+                //if (shape.ShapeType == ShapeType.Rectangle)
+                //{
                     Rectangle r = getRectangle();
                     shape.ShapeLocation = r.Location;
                     shape.ShapeSize = r.Size;
-                    //System.Diagnostics.Trace.WriteLine("MouseUP "+shape.Pen+" "+shape.Location.X+" "+ shape.Location.Y+ " " + shape.Size.Width+ " " + shape.Size.Height);
                     doc.rectangles.Add(r);
+                //System.Diagnostics.Trace.WriteLine(shape.ShapeType);
                     doc.savedShapes.Add(shape);
-                }
-                this.pictureBox.Refresh();
+                //}
+
+                this.pictureBox.Invalidate();
             }
             paint = false;
         }
