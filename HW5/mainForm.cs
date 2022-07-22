@@ -56,7 +56,6 @@ namespace HW5
                     shape = newShapes;
                     statusLabel.Text = "New document created.";
                     this.Text = "New Document";
-                    doc.rectangles.Clear();
                     doc.savedShapes.Clear();
                     this.pictureBox.Refresh();
                 }
@@ -308,14 +307,31 @@ namespace HW5
                 System.Diagnostics.Trace.WriteLine(i);
                 if (doc.savedShapes[i].ShapeType == ShapeType.Rectangle)
                 {
-                    //System.Diagnostics.Trace.WriteLine(doc.savedShapes[i].Pen + " " + doc.savedShapes[i].Location.X + " " + doc.savedShapes[i].Location.Y + " " + doc.savedShapes[i].Size.Width + " " + doc.savedShapes[i].Size.Height);
-
-                    e.Graphics.DrawRectangle(shape.Pen, doc.rectangles[i]);
+                    if (doc.savedShapes[i].Pen == null)
+                    {
+                        e.Graphics.DrawRectangle(shape.Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
+                    }
+                    else
+                    {
+                        e.Graphics.DrawRectangle(doc.savedShapes[i].Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y, 
+                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
+                    }
                     //g.FillRectangle(doc.savedShapes[i].SolidBrush, doc.rectangles[i]);
                 }
                 else if (doc.savedShapes[i].ShapeType == ShapeType.Ellipse)
                 {
-                    e.Graphics.DrawEllipse(shape.Pen, doc.rectangles[i]);
+                    if (doc.savedShapes[i].Pen == null)
+                    {
+                        e.Graphics.DrawEllipse(shape.Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
+                    }
+                    else 
+                    {
+                        e.Graphics.DrawEllipse(doc.savedShapes[i].Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
+                    }
+                        
                 }
 
             }
@@ -344,8 +360,9 @@ namespace HW5
             else if (e.Button == MouseButtons.Right)
             {
 
-                foreach(Rectangle rectangle in doc.rectangles)
+                foreach(Shape s in doc.savedShapes)
                 {
+                    Rectangle rectangle = new Rectangle(s.ShapeLocation.X, s.ShapeLocation.Y, s.ShapeSize.Width, s.ShapeSize.Height);
                     if (rectangle.Contains(e.Location))
                     {
                         this.pictureBox.Invalidate();
@@ -412,16 +429,18 @@ namespace HW5
 
         private void pictureBox_MouseUp(object sender, MouseEventArgs e)
         {
+            Shape tempS = new Shape();
             if (paint)
             {
                 //if (shape.ShapeType == ShapeType.Rectangle)
                 //{
-                    Rectangle r = getRectangle();
-                    shape.ShapeLocation = r.Location;
-                    shape.ShapeSize = r.Size;
-                    doc.rectangles.Add(r);
+                Rectangle r = getRectangle();
+                tempS.ShapeLocation = r.Location;
+                tempS.ShapeSize = r.Size;
+                //doc.rectangles.Add(r);
+                tempS.ShapeType = shape.ShapeType;
                 //System.Diagnostics.Trace.WriteLine(shape.ShapeType);
-                    doc.savedShapes.Add(shape);
+                doc.savedShapes.Add(tempS);
                 //}
 
                 this.pictureBox.Invalidate();
