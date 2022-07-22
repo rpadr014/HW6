@@ -306,7 +306,11 @@ namespace HW5
                 if (shape.ShapeType == ShapeType.Rectangle)
                 {
                     Rectangle r = getRectangle();
-                    doc.rectangles.Add(r);  
+                    try
+                    {
+                        graphics.DrawRectangle(shape.Pen, r);
+                    } catch { }
+                   
                 }
             }
 
@@ -322,8 +326,22 @@ namespace HW5
 
         private void pictureBox_MouseDown_1(object sender, MouseEventArgs e)
         {
-            paint = true;
-            currentPos = startPos = e.Location;
+            if(e.Button == MouseButtons.Left)
+            {
+                paint = true;
+                currentPos = startPos = e.Location;
+            }
+            else if(e.Button == MouseButtons.Right)
+            {
+                if(shape.Contains(e.Location))
+                {
+                    this.graphics.FillRectangle(new System.Drawing.SolidBrush(Color.FromArgb(128, 0, 0, 255)), shape.Location.X, shape.Location.Y, shape.Size.Width, shape.Size.Height);
+                    this.pictureBox.Refresh();
+                    ShapeDialog shapeDialog = new ShapeDialog();
+                    shapeDialog.ShowDialog();
+                }
+            }
+
         }
 
         private void pictureBox_MouseMove_1(object sender, MouseEventArgs e)
