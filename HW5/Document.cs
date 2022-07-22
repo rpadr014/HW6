@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace HW6
 {
-    internal class Document
+    [Serializable]
+    public class Document
     {
+        public List<Rectangle> rectangles { get; set; } = new List<Rectangle>();
     }
 }
