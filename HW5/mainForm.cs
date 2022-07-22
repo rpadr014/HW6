@@ -11,21 +11,25 @@ namespace HW5
         private string fileName = "";
         private bool edited = false;
         public Shape shape = new Shape();
-        //private Bitmap bitmap = new Bitmap();
-        private Graphics g;
+        private Bitmap bitmap;
+        private Graphics graphics;
         private Point startPos, currentPos;
         private Boolean paint;
 
         public mainForm()
         {
             InitializeComponent();
+            this.bitmap = new Bitmap(this.pictureBox.Width, this.pictureBox.Height);
+            this.graphics = Graphics.FromImage(bitmap);
+            this.graphics.Clear(Color.White);
+            this.pictureBox.Image = this.bitmap;
         }
 
         private Rectangle getRectangle()
         {
             return new Rectangle(
-                Math.Min(startPos.X, currentPos.X),
-                Math.Min(startPos.Y, currentPos.Y),
+                startPos.X,
+                startPos.Y,
                 Math.Abs(startPos.X - currentPos.X),
                 Math.Abs(startPos.Y - currentPos.Y));
         }
@@ -279,7 +283,7 @@ namespace HW5
 
         private void pictureBox_Paint_1(object sender, PaintEventArgs e)
         {
-            g = e.Graphics;
+            Graphics g = e.Graphics;
             if (paint)
             {
                 if (shape.ShapeType == ShapeType.Ellipse)
@@ -296,16 +300,27 @@ namespace HW5
 
         private void pictureBox_MouseUp_1(object sender, MouseEventArgs e)
         {
+            
+            
+            if(paint)
+            {
+                if (shape.ShapeType == ShapeType.Ellipse)
+                {
+                    //g.DrawEllipse(shape.Pen, cx, cy, sX, sY);
+                }
+                if (shape.ShapeType == ShapeType.Rectangle)
+                {
+                    Rectangle r = getRectangle();
+                    try
+                    {
+                        graphics.DrawRectangle(shape.Pen, r);
+                    } catch { }
+                   
+                }
+            }
+
             paint = false;
 
-            if (shape.ShapeType == ShapeType.Ellipse)
-            {
-                //g.DrawEllipse(shape.Pen, cx, cy, sX, sY);
-            }
-            if (shape.ShapeType == ShapeType.Rectangle)
-            {
-                //g.DrawRectangle(shape.Pen, r);
-            }
             //this.pictureBox.Invalidate();
         }
 
@@ -325,8 +340,9 @@ namespace HW5
             currentPos = e.Location;
             if (paint)
             {
-                this.pictureBox.Invalidate();
+                
             }
+            this.pictureBox.Refresh();
         }
     }
 }
