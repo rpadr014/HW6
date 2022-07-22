@@ -159,6 +159,10 @@ namespace HW5
 
         private void loadFeatures(Document theFeatures)
         {
+            foreach(Shape s in theFeatures.savedShapes)
+            {
+                s.Pen = new Pen(s.PenColor, 1);
+            }
             this.pictureBox.Refresh();
         }
 
@@ -447,6 +451,8 @@ namespace HW5
                 tempS.ShapeLocation = r.Location;
                 tempS.ShapeSize = r.Size;
                 tempS.ShapeType = shape.ShapeType;
+                tempS.PenColor = shape.Pen.Color;
+                tempS.Pen = shape.Pen;
                 doc.savedShapes.Add(tempS);
 
                 this.pictureBox.Invalidate();
