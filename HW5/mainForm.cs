@@ -98,9 +98,9 @@ namespace HW5
                 try
                 {
                     SoapFormatter formatter = new SoapFormatter();
-                    Shape newfeatures = (Shape)formatter.Deserialize(fs);
-                    shape = newfeatures;
-                    loadFeatures(shape);
+                    Document newfeatures = (Document)formatter.Deserialize(fs);
+                    doc = newfeatures;
+                    loadFeatures(doc);
                     statusLabel.Text = fileName + " was opened.";
                     this.Text = fileName;
                 }
@@ -123,10 +123,10 @@ namespace HW5
 
             try
             {
-                shape.ShapeSize = new Size(this.Size.Width, this.Size.Height);
-                shape.ShapeLocation = new Point(this.Location.X, this.Location.Y);
+                //shape.ShapeSize = new Size(this.Size.Width, this.Size.Height);
+                //shape.ShapeLocation = new Point(this.Location.X, this.Location.Y);
                 shape.textTitle = fileName;
-                formatter.Serialize(fs, shape);
+                formatter.Serialize(fs, doc);
                 statusLabel.Text = fileName + " was saved.  " + DateTime.Now.ToString();
             }
             catch (SerializationException er)
@@ -160,17 +160,16 @@ namespace HW5
 
         private void mainForm_Load(object sender, EventArgs e)
         {
-            loadFeatures(shape);
+            loadFeatures(doc);
         }
 
-        private void loadFeatures(Shape theFeatures)
+        private void loadFeatures(Document theFeatures)
         {
-            //this.textBox.ForeColor = theFeatures.textColor;
-            //this.textBox.BackColor = theFeatures.textBackColor;
-            //this.textBox.Font = theFeatures.textFont;
-            this.Size = theFeatures.ShapeSize;
-            this.Location = theFeatures.ShapeLocation;
-            this.Text = theFeatures.textTitle;
+            //this.Rectangles = theFeatures.ShapeSize;
+            //this.Location = theFeatures.ShapeLocation;
+            //this.Text = theFeatures.textTitle;
+
+            this.pictureBox.Refresh();
         }
 
         private void oathToolStripMenuItem_Click(object sender, EventArgs e)
@@ -311,12 +310,12 @@ namespace HW5
                 {
                     //System.Diagnostics.Trace.WriteLine(doc.savedShapes[i].Pen + " " + doc.savedShapes[i].Location.X + " " + doc.savedShapes[i].Location.Y + " " + doc.savedShapes[i].Size.Width + " " + doc.savedShapes[i].Size.Height);
 
-                    e.Graphics.DrawRectangle(doc.savedShapes[i].Pen, doc.rectangles[i]);
+                    e.Graphics.DrawRectangle(shape.Pen, doc.rectangles[i]);
                     //g.FillRectangle(doc.savedShapes[i].SolidBrush, doc.rectangles[i]);
                 }
                 else if (doc.savedShapes[i].ShapeType == ShapeType.Ellipse)
                 {
-                    e.Graphics.DrawEllipse(doc.savedShapes[i].Pen, doc.rectangles[i]);
+                    e.Graphics.DrawEllipse(shape.Pen, doc.rectangles[i]);
                 }
 
             }
