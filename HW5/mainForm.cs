@@ -13,9 +13,6 @@ namespace HW5
         private string fileName = "";
         private bool edited = false;
         public Shape shape = new Shape();
-        //private Bitmap bitmap;
-        //private Graphics graphics;
-        //private Graphics g;
         private Point startPos, currentPos;
         private Boolean paint;
         private Document doc = new Document();
@@ -27,8 +24,6 @@ namespace HW5
         public mainForm()
         {
             InitializeComponent();
-            //this.bitmap = new Bitmap(this.pictureBox.Width, this.pictureBox.Height);
-            //this.graphics = Graphics.FromImage(bitmap);
         }
 
         private Rectangle getRectangle()
@@ -164,10 +159,6 @@ namespace HW5
 
         private void loadFeatures(Document theFeatures)
         {
-            //this.Rectangles = theFeatures.ShapeSize;
-            //this.Location = theFeatures.ShapeLocation;
-            //this.Text = theFeatures.textTitle;
-
             this.pictureBox.Refresh();
         }
 
@@ -304,7 +295,6 @@ namespace HW5
             edited = true;
             for (int i = 0; i < doc.savedShapes.Count; i++)
             {
-                System.Diagnostics.Trace.WriteLine(i);
                 if (doc.savedShapes[i].ShapeType == ShapeType.Rectangle)
                 {
                     if (doc.savedShapes[i].Pen == null)
@@ -317,7 +307,6 @@ namespace HW5
                         e.Graphics.DrawRectangle(doc.savedShapes[i].Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y, 
                             doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
                     }
-                    //g.FillRectangle(doc.savedShapes[i].SolidBrush, doc.rectangles[i]);
                 }
                 else if (doc.savedShapes[i].ShapeType == ShapeType.Ellipse)
                 {
@@ -335,7 +324,6 @@ namespace HW5
                 }
 
             }
-            //if (doc.rectangles.Count > 0) e.Graphics.DrawRectangles(shape.Pen, doc.rectangles.ToArray());
 
             if (paint)
             {
@@ -433,16 +421,11 @@ namespace HW5
             Shape tempS = new Shape();
             if (paint)
             {
-                //if (shape.ShapeType == ShapeType.Rectangle)
-                //{
                 Rectangle r = getRectangle();
                 tempS.ShapeLocation = r.Location;
                 tempS.ShapeSize = r.Size;
-                //doc.rectangles.Add(r);
                 tempS.ShapeType = shape.ShapeType;
-                //System.Diagnostics.Trace.WriteLine(shape.ShapeType);
                 doc.savedShapes.Add(tempS);
-                //}
 
                 this.pictureBox.Invalidate();
             }
