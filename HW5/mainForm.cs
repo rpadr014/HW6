@@ -369,14 +369,19 @@ namespace HW5
             else if (e.Button == MouseButtons.Right)
             {
 
-                if (shape.Contains(e.Location))
+                foreach(Rectangle rectangle in doc.rectangles)
                 {
-                    //this.graphics.FillRectangle(new System.Drawing.SolidBrush(Color.FromArgb(128, 0, 0, 255)), doc.rectangles[0]);
-
-
-                    ShapeDialog shapeDialog = new ShapeDialog();
-                    shapeDialog.ShowDialog();
+                    if (rectangle.Contains(e.Location))
+                    {
+                        this.pictureBox.Invalidate();
+                        Graphics.FromImage(this.pictureBox.Image).FillRectangle(new SolidBrush(Color.FromArgb(128, 0, 0, 255)), rectangle);
+                        this.pictureBox.Refresh();
+                        ShapeDialog shapeDialog = new ShapeDialog();
+                        shapeDialog.ShowDialog();
+                        break;
+                    }
                 }
+
             }
         }
 
