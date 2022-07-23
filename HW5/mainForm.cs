@@ -301,47 +301,20 @@ namespace HW5
             {
                 if (doc.savedShapes[i].ShapeType == ShapeType.Rectangle)
                 {
-                    if (doc.savedShapes[i].Pen == null)
-                    {
-                        e.Graphics.DrawRectangle(shape.Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                        e.Graphics.DrawRectangle(new Pen(doc.savedShapes[i].PenColor, 1), new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y, 
                             doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
-                    }
-                    else
-                    {
-                        e.Graphics.DrawRectangle(doc.savedShapes[i].Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y, 
-                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
-                    }
                 }
                 else if (doc.savedShapes[i].ShapeType == ShapeType.Ellipse)
                 {
-                    if (doc.savedShapes[i].Pen == null)
-                    {
-                        e.Graphics.DrawEllipse(shape.Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
-                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
-                    }
-                    else 
-                    {
-                        e.Graphics.DrawEllipse(doc.savedShapes[i].Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
-                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
-                    }
-                        
+                        e.Graphics.DrawEllipse(new Pen(doc.savedShapes[i].PenColor, 1), new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height)); 
                 }
                 else if (doc.savedShapes[i].ShapeType == ShapeType.Custom)
                 {
-                    if (doc.savedShapes[i].Pen == null)
-                    {
-                        e.Graphics.DrawRectangle(shape.Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                        e.Graphics.DrawRectangle(new Pen(doc.savedShapes[i].PenColor, 1), new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
                             doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
-                        e.Graphics.DrawEllipse(shape.Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                        e.Graphics.DrawEllipse(new Pen(doc.savedShapes[i].PenColor, 1), new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
                             doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
-                    }
-                    else
-                    {
-                        e.Graphics.DrawRectangle(doc.savedShapes[i].Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
-                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
-                        e.Graphics.DrawEllipse(doc.savedShapes[i].Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
-                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
-                    }
                 }
 
             }
