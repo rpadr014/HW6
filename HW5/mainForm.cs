@@ -496,6 +496,117 @@ namespace HW5
             }
         }
 
+        private void solidToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            solidBrushToolStripMenuItem.Checked = true;
+            solidToolStripMenuItem.Checked = false;
+            compoundToolStripMenuItem.Checked = false;
+            customToolStripMenuItem.Checked = false;
+            hatchToolStripMenuItem.Checked = false;
+            linearGradientToolStripMenuItem.Checked = false;
+
+            if (solidBrushToolStripMenuItem.Checked)
+            {
+                hatchToolStripMenuItem.Checked = false;
+                linearGradientToolStripMenuItem.Checked = false;
+                shape.BrushType = BrushType.Solid;
+                shape.Pen = new Pen(new SolidBrush(shape.BrushColor), 10);
+            }
+        }
+
+        private void hatchToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            hatchToolStripMenuItem.Checked = true;
+            solidToolStripMenuItem.Checked = false;
+            compoundToolStripMenuItem.Checked = false;
+            customToolStripMenuItem.Checked = false;
+            solidBrushToolStripMenuItem.Checked = false;
+            linearGradientToolStripMenuItem.Checked = false;
+
+            if (hatchToolStripMenuItem.Checked)
+            {
+                solidBrushToolStripMenuItem.Checked = false;
+                linearGradientToolStripMenuItem.Checked = false;
+                shape.BrushType = BrushType.Hatch;
+                shape.Pen = new Pen(new HatchBrush(HatchStyle.Plaid, shape.BrushColor, Color.Black), 10);
+            }
+        }
+
+        private void linearGradientToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            linearGradientToolStripMenuItem.Checked = true;
+            solidToolStripMenuItem.Checked = false;
+            compoundToolStripMenuItem.Checked = false;
+            customToolStripMenuItem.Checked = false;
+            solidBrushToolStripMenuItem.Checked = false;
+            hatchToolStripMenuItem.Checked = false;
+
+            if (linearGradientToolStripMenuItem.Checked)
+            {
+                solidBrushToolStripMenuItem.Checked = false;
+                hatchToolStripMenuItem.Checked = false;
+                shape.BrushType = BrushType.LinearGradient;
+                shape.Pen = new Pen(new LinearGradientBrush(new PointF(0, 0), new PointF(0, 5), shape.BrushColor, shape.PenColor), 10);
+            }
+        }
+
+        private void solidToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            solidToolStripMenuItem.Checked = true;
+            compoundToolStripMenuItem.Checked = false;
+            customToolStripMenuItem.Checked = false;
+            solidBrushToolStripMenuItem.Checked = false;
+            hatchToolStripMenuItem.Checked = false;
+            linearGradientToolStripMenuItem.Checked = false;
+
+            if (solidToolStripMenuItem.Checked)
+            {
+                compoundToolStripMenuItem.Checked = false;
+                customToolStripMenuItem.Checked = false;
+                shape.PenType = PenType.Solid;
+                shape.Pen.DashStyle = DashStyle.Solid;
+                //shape.DashPattern = shape.Pen.DashPattern;
+            }
+        }
+
+        private void compoundToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            compoundToolStripMenuItem.Checked = true;
+            solidToolStripMenuItem.Checked = false;
+            customToolStripMenuItem.Checked = false;
+            solidBrushToolStripMenuItem.Checked = false;
+            hatchToolStripMenuItem.Checked = false;
+            linearGradientToolStripMenuItem.Checked = false;
+
+            if (compoundToolStripMenuItem.Checked)
+            {
+                solidToolStripMenuItem.Checked = false;
+                customToolStripMenuItem.Checked = false;
+                shape.PenType = PenType.Compound;
+                shape.Pen.CompoundArray = new float[] { 0.0f, 0.2f, 0.3f, 0.4f, 0.5f, 1.0f };
+                shape.DashPattern = shape.Pen.CompoundArray;
+            }
+        }
+
+        private void customDashedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            customToolStripMenuItem.Checked = true;
+            solidToolStripMenuItem.Checked = false;
+            compoundToolStripMenuItem.Checked = false;
+            solidBrushToolStripMenuItem.Checked = false;
+            hatchToolStripMenuItem.Checked = false;
+            linearGradientToolStripMenuItem.Checked = false;
+
+            if (customToolStripMenuItem.Checked)
+            {
+                solidToolStripMenuItem.Checked = false;
+                compoundToolStripMenuItem.Checked = false;
+                shape.PenType = PenType.CustomDashed;
+                shape.Pen.DashPattern = new float[] { 4.0F, 2.0F, 1.0F, 3.0F };
+                shape.DashPattern = shape.Pen.DashPattern;
+            }
+        }
+
         private void pictureBox_MouseUp(object sender, MouseEventArgs e)
         {
             Shape tempS = new Shape();
