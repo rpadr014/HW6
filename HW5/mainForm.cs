@@ -244,7 +244,7 @@ namespace HW5
             {
                 hatchToolStripMenuItem.Checked = false;
                 linearGradientToolStripMenuItem.Checked = false;
-                canvasPen = new Pen(new SolidBrush(brushColor), 10);
+                canvasPen = new Pen(new SolidBrush(brushColor), 15);
             }
         }
 
