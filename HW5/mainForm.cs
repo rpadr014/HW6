@@ -16,10 +16,9 @@ namespace HW5
         private Point startPos, currentPos;
         private Boolean paint;
         private Document doc = new Document();
-        private Brush canvasBrush;
-        private Pen canvasPen;
-        private Boolean brushFlag;
-        private Boolean penFlag;
+        private Pen canvasPen = new Pen(Color.Black);
+        private Color brushColor = Color.Black;
+        private Color penColor = Color.Black;
 
         public mainForm()
         {
@@ -187,7 +186,8 @@ namespace HW5
             {
                 compoundToolStripMenuItem.Checked = false;
                 customToolStripMenuItem.Checked = false;
-                shape.PenType = PenType.Solid;
+                canvasPen = new Pen(penColor);
+                canvasPen.DashStyle = DashStyle.Solid;
             }
         }
 
@@ -204,7 +204,8 @@ namespace HW5
             {
                 solidToolStripMenuItem.Checked = false;
                 customToolStripMenuItem.Checked = false;
-                shape.PenType = PenType.Compound;
+                canvasPen = new Pen(penColor);
+                canvasPen.CompoundArray = new float[] { 0.0f, 0.2f, 0.3f, 0.4f, 0.5f, 1.0f };
             }
         }
 
@@ -221,10 +222,8 @@ namespace HW5
             {
                 solidToolStripMenuItem.Checked = false;
                 compoundToolStripMenuItem.Checked = false;
-                shape.PenType = PenType.CustomDashed;
-                penFlag = true;
-                brushFlag = false;
-                shape.Pen.DashPattern = new float[] { 4.0F, 2.0F, 1.0F, 3.0F }; 
+                canvasPen = new Pen(penColor);
+                canvasPen.DashPattern = new float[] { 4.0F, 2.0F, 1.0F, 3.0F };
             }
         }
 
@@ -241,9 +240,7 @@ namespace HW5
             {
                 hatchToolStripMenuItem.Checked = false;
                 linearGradientToolStripMenuItem.Checked = false;
-                canvasPen = new Pen(new SolidBrush(Color.Blue), 10);
-                //shape.BrushType = BrushType.Solid;
-                brushFlag = true;
+                canvasPen = new Pen(new SolidBrush(brushColor), 10);
             }
         }
 
@@ -260,9 +257,7 @@ namespace HW5
             {
                 solidBrushToolStripMenuItem.Checked = false;
                 linearGradientToolStripMenuItem.Checked = false;
-                canvasPen = new Pen(new HatchBrush(HatchStyle.Plaid,Color.Blue), 10);
-                //shape.BrushType = BrushType.Hatch;
-                brushFlag = true;
+                canvasPen = new Pen(new HatchBrush(HatchStyle.Plaid,brushColor), 10);
             }
         }
 
@@ -279,9 +274,7 @@ namespace HW5
             {
                 solidBrushToolStripMenuItem.Checked = false;
                 hatchToolStripMenuItem.Checked = false;
-                canvasPen = new Pen(new LinearGradientBrush(new PointF(0,0),new PointF(0,5), Color.Red, Color.Bisque), 10);
-                //shape.BrushType = BrushType.LinearGradient;
-                brushFlag=true;
+                canvasPen = new Pen(new LinearGradientBrush(new PointF(0,0),new PointF(0,5), brushColor, penColor), 10);
             }
         }
 
@@ -299,12 +292,12 @@ namespace HW5
                 {
                     if (doc.savedShapes[i].Pen == null)
                     {
-                        e.Graphics.DrawRectangle(shape.Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                        e.Graphics.DrawRectangle(canvasPen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
                             doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
                     }
                     else
                     {
-                        e.Graphics.DrawRectangle(doc.savedShapes[i].Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y, 
+                        e.Graphics.DrawRectangle(canvasPen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y, 
                             doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
                     }
                 }
@@ -312,12 +305,12 @@ namespace HW5
                 {
                     if (doc.savedShapes[i].Pen == null)
                     {
-                        e.Graphics.DrawEllipse(shape.Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                        e.Graphics.DrawEllipse(canvasPen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
                             doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
                     }
                     else 
                     {
-                        e.Graphics.DrawEllipse(doc.savedShapes[i].Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                        e.Graphics.DrawEllipse(canvasPen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
                             doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
                     }
                         
@@ -326,16 +319,16 @@ namespace HW5
                 {
                     if (doc.savedShapes[i].Pen == null)
                     {
-                        e.Graphics.DrawRectangle(shape.Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                        e.Graphics.DrawRectangle(canvasPen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
                             doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
-                        e.Graphics.DrawEllipse(shape.Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                        e.Graphics.DrawEllipse(canvasPen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
                             doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
                     }
                     else
                     {
-                        e.Graphics.DrawRectangle(doc.savedShapes[i].Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                        e.Graphics.DrawRectangle(canvasPen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
                             doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
-                        e.Graphics.DrawEllipse(doc.savedShapes[i].Pen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                        e.Graphics.DrawEllipse(canvasPen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
                             doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
                     }
                 }
@@ -346,16 +339,16 @@ namespace HW5
             {
                 if (shape.ShapeType == ShapeType.Rectangle)
                 {
-                    e.Graphics.DrawRectangle(shape.Pen, getRectangle());
+                    e.Graphics.DrawRectangle(canvasPen, getRectangle());
                 }
                 if (shape.ShapeType == ShapeType.Ellipse)
                 {
-                    e.Graphics.DrawEllipse(shape.Pen, getRectangle());
+                    e.Graphics.DrawEllipse(canvasPen, getRectangle());
                 }
                 if (shape.ShapeType == ShapeType.Custom)
                 {
-                    e.Graphics.DrawRectangle(shape.Pen, getRectangle());
-                    e.Graphics.DrawEllipse(shape.Pen, getRectangle());
+                    e.Graphics.DrawRectangle(canvasPen, getRectangle());
+                    e.Graphics.DrawEllipse(canvasPen, getRectangle());
                 }
             }
         }
@@ -402,7 +395,7 @@ namespace HW5
             ColorDialog penCol = new ColorDialog();
             if(penCol.ShowDialog() == DialogResult.OK)
             {
-               shape.Pen.Color = penCol.Color;
+               penColor = penCol.Color;
             }
         }
 
@@ -411,8 +404,7 @@ namespace HW5
             ColorDialog brushCol = new ColorDialog();
             if(brushCol.ShowDialog() == DialogResult.OK)
             {
-                shape.SolidBrush.Color = brushCol.Color;
-                shape.Pen = new Pen(shape.SolidBrush.Color, 1);
+                brushColor = brushCol.Color;
             }
         }
 
