@@ -10,7 +10,6 @@ namespace HW6
     [Serializable]
     public class Document
     {
-        //public List<Rectangle> rectangles { get; set; } = new List<Rectangle>();
         public List<Shape> savedShapes { get; set; } = new List<Shape>();
     }
 }

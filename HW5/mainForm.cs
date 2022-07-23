@@ -264,7 +264,7 @@ namespace HW5
                 solidBrushToolStripMenuItem.Checked = false;
                 linearGradientToolStripMenuItem.Checked = false;
                 shape.BrushType = BrushType.Hatch;
-                shape.Pen = new Pen(new HatchBrush(HatchStyle.Plaid, shape.BrushColor), 10);
+                shape.Pen = new Pen(new HatchBrush(HatchStyle.Plaid, shape.BrushColor, Color.Black), 10);
             }
         }
 
@@ -306,7 +306,11 @@ namespace HW5
                     } 
                     else if (doc.savedShapes[i].BrushType == BrushType.Hatch)
                     {
-                        tempP = new Pen(new HatchBrush(HatchStyle.Plaid, doc.savedShapes[i].BrushColor), 10);
+                        tempP = new Pen(new HatchBrush(HatchStyle.Plaid, doc.savedShapes[i].BrushColor, doc.savedShapes[i].PenColor), 10);
+                    }
+                    else if (doc.savedShapes[i].BrushType == BrushType.LinearGradient)
+                    {
+                        tempP = new Pen(new LinearGradientBrush(new PointF(0, 0), new PointF(0, 5), doc.savedShapes[i].BrushColor, doc.savedShapes[i].PenColor), 10);
                     }
                     else 
                     { 
@@ -314,7 +318,8 @@ namespace HW5
                     }
                     if (doc.savedShapes[i].PenType == PenType.CustomDashed) tempP.DashPattern = doc.savedShapes[i].DashPattern;
                     if (doc.savedShapes[i].PenType == PenType.Compound) tempP.CompoundArray = doc.savedShapes[i].DashPattern;
-                        e.Graphics.DrawRectangle(tempP, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+
+                    e.Graphics.DrawRectangle(tempP, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
                         doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
                 }
                 else if (doc.savedShapes[i].ShapeType == ShapeType.Ellipse)
@@ -325,7 +330,11 @@ namespace HW5
                     }
                     else if (doc.savedShapes[i].BrushType == BrushType.Hatch)
                     {
-                        tempP = new Pen(new HatchBrush(HatchStyle.Plaid, doc.savedShapes[i].BrushColor), 10);
+                        tempP = new Pen(new HatchBrush(HatchStyle.Plaid, doc.savedShapes[i].BrushColor, doc.savedShapes[i].PenColor), 10);
+                    }
+                    else if (doc.savedShapes[i].BrushType == BrushType.LinearGradient)
+                    {
+                        tempP = new Pen(new LinearGradientBrush(new PointF(0, 0), new PointF(0, 5), doc.savedShapes[i].BrushColor, doc.savedShapes[i].PenColor), 10);
                     }
                     else
                     {
@@ -333,6 +342,7 @@ namespace HW5
                     }
                     if (doc.savedShapes[i].PenType == PenType.CustomDashed) tempP.DashPattern = doc.savedShapes[i].DashPattern;
                     if (doc.savedShapes[i].PenType == PenType.Compound) tempP.CompoundArray = doc.savedShapes[i].DashPattern;
+
                     e.Graphics.DrawEllipse(tempP, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
                         doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
                 }
@@ -344,7 +354,11 @@ namespace HW5
                     }
                     else if (doc.savedShapes[i].BrushType == BrushType.Hatch)
                     {
-                        tempP = new Pen(new HatchBrush(HatchStyle.Plaid, doc.savedShapes[i].BrushColor), 10);
+                        tempP = new Pen(new HatchBrush(HatchStyle.Plaid, doc.savedShapes[i].BrushColor, doc.savedShapes[i].PenColor), 10);
+                    }
+                    else if (doc.savedShapes[i].BrushType == BrushType.LinearGradient)
+                    {
+                        tempP = new Pen(new LinearGradientBrush(new PointF(0, 0), new PointF(0, 5), doc.savedShapes[i].BrushColor, doc.savedShapes[i].PenColor), 10);
                     }
                     else
                     {
@@ -352,6 +366,7 @@ namespace HW5
                     }
                     if (doc.savedShapes[i].PenType == PenType.CustomDashed) tempP.DashPattern = doc.savedShapes[i].DashPattern;
                     if (doc.savedShapes[i].PenType == PenType.Compound) tempP.CompoundArray = doc.savedShapes[i].DashPattern;
+
                     e.Graphics.DrawRectangle(tempP, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
                             doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
                     e.Graphics.DrawEllipse(tempP, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
@@ -362,6 +377,7 @@ namespace HW5
             {
                 if (shape.ShapeType == ShapeType.Rectangle)
                 {
+                    System.Diagnostics.Trace.WriteLine(shape.Pen.Brush);
                     e.Graphics.DrawRectangle(shape.Pen, getRectangle());
                 }
                 if (shape.ShapeType == ShapeType.Ellipse)
