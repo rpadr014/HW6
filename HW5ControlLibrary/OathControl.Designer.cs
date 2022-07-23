@@ -45,7 +45,7 @@ namespace HW5ControlLibrary
             this.gradient.Location = new System.Drawing.Point(0, 0);
             this.gradient.Name = "pathGradient";
             this.gradient.Size = new System.Drawing.Size(1197, 282);
-            this.gradient.TabIndex = 1;
+            this.gradient.TabIndex = 0;
             this.gradient.colorOne = System.Drawing.Color.Black;
             // 
             // oathLabel
@@ -69,7 +69,7 @@ namespace HW5ControlLibrary
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.oathLabel);
+            this.Controls.Add(this.gradient);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "OathControl";
             this.Size = new System.Drawing.Size(1197, 282);
