@@ -23,6 +23,7 @@ namespace HW5
         public Point ShapeLocation { get; set; } = new Point(0,0);
         public String textTitle { get; set; } = "Untitled - ShapePad";
         public Color PenColor { get; set; }
+        public float[] DashPattern { get; set; }
         [field: NonSerialized()] public Pen Pen { get; set; } = new Pen(Color.Black, 1);
         [field: NonSerialized()] public SolidBrush SolidBrush { get; set; } = new SolidBrush(Color.FromArgb(255, 0, 0, 255));
 

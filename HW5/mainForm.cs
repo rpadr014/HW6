@@ -16,9 +16,9 @@ namespace HW5
         private Point startPos, currentPos;
         private Boolean paint;
         private Document doc = new Document();
-        private Pen canvasPen = new Pen(Color.Black);
+        //private Pen canvasPen = new Pen(Color.Black);
         private Color brushColor = Color.Black;
-        private Color penColor = Color.Black;
+        //private Color penColor = Color.Black;
 
         public mainForm()
         {
@@ -161,6 +161,7 @@ namespace HW5
             foreach(Shape s in theFeatures.savedShapes)
             {
                 s.Pen = new Pen(s.PenColor, 1);
+                s.Pen.DashPattern = s.DashPattern;
             }
             this.pictureBox.Refresh();
         }
@@ -190,8 +191,9 @@ namespace HW5
             {
                 compoundToolStripMenuItem.Checked = false;
                 customToolStripMenuItem.Checked = false;
-                canvasPen = new Pen(penColor);
-                canvasPen.DashStyle = DashStyle.Solid;
+                shape.PenType = PenType.Solid;
+                shape.Pen.DashStyle = DashStyle.Solid;
+                //shape.DashPattern = shape.Pen.DashPattern;
             }
         }
 
@@ -208,8 +210,9 @@ namespace HW5
             {
                 solidToolStripMenuItem.Checked = false;
                 customToolStripMenuItem.Checked = false;
-                canvasPen = new Pen(penColor);
-                canvasPen.CompoundArray = new float[] { 0.0f, 0.2f, 0.3f, 0.4f, 0.5f, 1.0f };
+                shape.PenType = PenType.Compound;
+                shape.Pen.CompoundArray = new float[] { 0.0f, 0.2f, 0.3f, 0.4f, 0.5f, 1.0f };
+                shape.DashPattern = shape.Pen.CompoundArray;
             }
         }
 
@@ -226,8 +229,9 @@ namespace HW5
             {
                 solidToolStripMenuItem.Checked = false;
                 compoundToolStripMenuItem.Checked = false;
-                canvasPen = new Pen(penColor);
-                canvasPen.DashPattern = new float[] { 4.0F, 2.0F, 1.0F, 3.0F };
+                shape.PenType = PenType.CustomDashed;
+                shape.Pen.DashPattern = new float[] { 4.0F, 2.0F, 1.0F, 3.0F };
+                shape.DashPattern = shape.Pen.DashPattern;
             }
         }
 
@@ -244,7 +248,7 @@ namespace HW5
             {
                 hatchToolStripMenuItem.Checked = false;
                 linearGradientToolStripMenuItem.Checked = false;
-                canvasPen = new Pen(new SolidBrush(brushColor), 10);
+                shape.Pen = new Pen(new SolidBrush(brushColor), 10);
             }
         }
 
@@ -261,7 +265,7 @@ namespace HW5
             {
                 solidBrushToolStripMenuItem.Checked = false;
                 linearGradientToolStripMenuItem.Checked = false;
-                canvasPen = new Pen(new HatchBrush(HatchStyle.Plaid,brushColor), 10);
+                shape.Pen = new Pen(new HatchBrush(HatchStyle.Plaid,brushColor), 10);
             }
         }
 
@@ -278,7 +282,7 @@ namespace HW5
             {
                 solidBrushToolStripMenuItem.Checked = false;
                 hatchToolStripMenuItem.Checked = false;
-                canvasPen = new Pen(new LinearGradientBrush(new PointF(0,0),new PointF(0,5), brushColor, penColor), 10);
+                shape.Pen = new Pen(new LinearGradientBrush(new PointF(0,0),new PointF(0,5), brushColor, shape.PenColor), 10);
             }
         }
 
@@ -292,65 +296,50 @@ namespace HW5
             edited = true;
             for (int i = 0; i < doc.savedShapes.Count; i++)
             {
+                Pen tempP;
+
                 if (doc.savedShapes[i].ShapeType == ShapeType.Rectangle)
                 {
-                    if (doc.savedShapes[i].Pen == null)
-                    {
-                        e.Graphics.DrawRectangle(canvasPen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
-                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
-                    }
-                    else
-                    {
-                        e.Graphics.DrawRectangle(canvasPen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y, 
-                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
+                    tempP = new Pen(doc.savedShapes[i].PenColor, 1);
+                    if (doc.savedShapes[i].PenType == PenType.CustomDashed) tempP.DashPattern = doc.savedShapes[i].DashPattern;
+                    if (doc.savedShapes[i].PenType == PenType.Compound) tempP.CompoundArray = doc.savedShapes[i].DashPattern;
+                    e.Graphics.DrawRectangle(tempP, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                        doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
                 }
                 else if (doc.savedShapes[i].ShapeType == ShapeType.Ellipse)
                 {
-                    if (doc.savedShapes[i].Pen == null)
-                    {
-                        e.Graphics.DrawEllipse(canvasPen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
-                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
-                    }
-                    else 
-                    {
-                        e.Graphics.DrawEllipse(canvasPen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
-                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
-                    }
-                        
+                    tempP = new Pen(doc.savedShapes[i].PenColor, 1);
+                    if (doc.savedShapes[i].PenType == PenType.CustomDashed) tempP.DashPattern = doc.savedShapes[i].DashPattern;
+                    if (doc.savedShapes[i].PenType == PenType.Compound) tempP.CompoundArray = doc.savedShapes[i].DashPattern;
+                    e.Graphics.DrawEllipse(tempP, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                        doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
                 }
                 else if (doc.savedShapes[i].ShapeType == ShapeType.Custom)
                 {
-                    if (doc.savedShapes[i].Pen == null)
+                    tempP = new Pen(doc.savedShapes[i].PenColor, 1);
+                    if (doc.savedShapes[i].PenType == PenType.CustomDashed) tempP.DashPattern = doc.savedShapes[i].DashPattern;
+                    if (doc.savedShapes[i].PenType == PenType.Compound) tempP.CompoundArray = doc.savedShapes[i].DashPattern;
+                    e.Graphics.DrawRectangle(tempP, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
+                    e.Graphics.DrawEllipse(tempP, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
+                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
+                }
+
+                if (paint)
+                {
+                    if (shape.ShapeType == ShapeType.Rectangle)
                     {
-                        e.Graphics.DrawRectangle(canvasPen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
-                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
-                        e.Graphics.DrawEllipse(canvasPen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
-                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
+                        e.Graphics.DrawRectangle(shape.Pen, getRectangle());
                     }
-                    else
+                    if (shape.ShapeType == ShapeType.Ellipse)
                     {
-                        e.Graphics.DrawRectangle(canvasPen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
-                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
-                        e.Graphics.DrawEllipse(canvasPen, new Rectangle(doc.savedShapes[i].ShapeLocation.X, doc.savedShapes[i].ShapeLocation.Y,
-                            doc.savedShapes[i].ShapeSize.Width, doc.savedShapes[i].ShapeSize.Height));
-                }
-
-            }
-
-            if (paint)
-            {
-                if (shape.ShapeType == ShapeType.Rectangle)
-                {
-                    e.Graphics.DrawRectangle(canvasPen, getRectangle());
-                }
-                if (shape.ShapeType == ShapeType.Ellipse)
-                {
-                    e.Graphics.DrawEllipse(canvasPen, getRectangle());
-                }
-                if (shape.ShapeType == ShapeType.Custom)
-                {
-                    e.Graphics.DrawRectangle(canvasPen, getRectangle());
-                    e.Graphics.DrawEllipse(canvasPen, getRectangle());
+                        e.Graphics.DrawEllipse(shape.Pen, getRectangle());
+                    }
+                    if (shape.ShapeType == ShapeType.Custom)
+                    {
+                        e.Graphics.DrawRectangle(shape.Pen, getRectangle());
+                        e.Graphics.DrawEllipse(shape.Pen, getRectangle());
+                    }
                 }
             }
         }
@@ -423,7 +412,7 @@ namespace HW5
             ColorDialog penCol = new ColorDialog();
             if(penCol.ShowDialog() == DialogResult.OK)
             {
-               penColor = penCol.Color;
+               shape.Pen.Color = penCol.Color;
             }
         }
 
@@ -469,6 +458,8 @@ namespace HW5
                 tempS.ShapeType = shape.ShapeType;
                 tempS.PenColor = shape.Pen.Color;
                 tempS.Pen = shape.Pen;
+                tempS.DashPattern = shape.DashPattern;
+                tempS.PenType = shape.PenType;
                 doc.savedShapes.Add(tempS);
 
                 this.pictureBox.Invalidate();
