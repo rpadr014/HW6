@@ -363,7 +363,7 @@ namespace HW5
                     {
                         this.pictureBox.Invalidate();
                         
-                        this.selectedShape = s;
+                        this.selectedShape = s.clone();
 
                         if (s.ShapeType == ShapeType.Rectangle) Graphics.FromImage(this.pictureBox.Image).FillRectangle(new SolidBrush(Color.FromArgb(128, 0, 0, 255)), rectangle);
                         if (s.ShapeType == ShapeType.Ellipse) Graphics.FromImage(this.pictureBox.Image).FillEllipse(new SolidBrush(Color.FromArgb(128, 0, 0, 255)), rectangle);
@@ -371,6 +371,7 @@ namespace HW5
                         ShapeDialog shapeDialog = new ShapeDialog(s);
                         shapeDialog.SaveButtonClicked += ShapeDialog_SaveButtonClicked;
                         shapeDialog.FormClosing += ShapeDialog_FormClosing;
+
                         shapeDialog.ShowDialog();
 
                         break;

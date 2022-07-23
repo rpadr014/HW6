@@ -32,5 +32,10 @@ namespace HW5
         {
             return point.X >= this.ShapeLocation.X && point.X <= this.ShapeLocation.X + this.ShapeSize.Width && point.Y >= this.ShapeLocation.Y && point.Y <= this.ShapeLocation.Y + this.ShapeSize.Height;
         }
+
+        public Shape clone()
+        {
+            return this.MemberwiseClone() as Shape;
+        }
     }
 }

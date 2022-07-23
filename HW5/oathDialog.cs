@@ -21,5 +21,10 @@ namespace HW5
         {
 
         }
+
+        private void oathControl1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

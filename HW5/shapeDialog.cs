@@ -18,8 +18,8 @@ namespace HW5
         {
             InitializeComponent();
             this.shape = shape;
-            this.brushTypeComboBox.DataSource = Enum.GetNames(typeof(BrushType));
-            this.penTypeComboBox.DataSource = Enum.GetNames(typeof(PenType));
+            this.brushTypeComboBox.DataSource = Enum.GetValues(typeof(BrushType));
+            this.penTypeComboBox.DataSource = Enum.GetValues(typeof(PenType));
             this.brushTypeComboBox.SelectedItem = this.shape.BrushType;
             this.penTypeComboBox.SelectedItem = this.shape.PenType;
             this.widthBox.Value = this.shape.ShapeSize.Width;
@@ -36,7 +36,7 @@ namespace HW5
         private void OnSaveButtonClicked(object sender, EventArgs e)
         {
             this.shape.BrushType = (BrushType) Enum.Parse(typeof(BrushType), this.brushTypeComboBox.SelectedItem.ToString());
-            this.shape.PenType = (PenType)Enum.Parse(typeof(BrushType), this.penTypeComboBox.SelectedItem.ToString());
+            this.shape.PenType = (PenType) Enum.Parse(typeof(PenType), this.penTypeComboBox.SelectedItem.ToString());
             this.shape.ShapeSize = new Size((int)this.widthBox.Value, (int)this.heightBox.Value);
             this.shape.ShapeLocation = new Point((int)this.xBox.Value, ((int)this.yBox.Value));
             if(SaveButtonClicked != null)
