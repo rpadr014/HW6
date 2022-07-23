@@ -40,22 +40,22 @@ namespace HW5
             this.saveButton = new System.Windows.Forms.Button();
             this.shapePropertiesGroupBox = new System.Windows.Forms.GroupBox();
             this.xLabel2 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.xBox = new System.Windows.Forms.NumericUpDown();
             this.yLabel = new System.Windows.Forms.Label();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.yBox = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.heightLabel = new System.Windows.Forms.Label();
-            this.xLabel = new System.Windows.Forms.NumericUpDown();
+            this.heightBox = new System.Windows.Forms.NumericUpDown();
             this.widthLabel = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.widthBox = new System.Windows.Forms.NumericUpDown();
             this.sizeLabel = new System.Windows.Forms.Label();
             this.penTypeLabel = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.penTypeComboBox = new System.Windows.Forms.ComboBox();
             this.shapePropertiesGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.xLabel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.yBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.heightBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.widthBox)).BeginInit();
             this.SuspendLayout();
             // 
             // brushTypeLabel
@@ -87,22 +87,22 @@ namespace HW5
             this.saveButton.TabIndex = 5;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.button1_Click);
+            this.saveButton.Click += new System.EventHandler(this.OnSaveButtonClicked);
             // 
             // shapePropertiesGroupBox
             // 
             this.shapePropertiesGroupBox.Controls.Add(this.xLabel2);
-            this.shapePropertiesGroupBox.Controls.Add(this.numericUpDown2);
+            this.shapePropertiesGroupBox.Controls.Add(this.xBox);
             this.shapePropertiesGroupBox.Controls.Add(this.yLabel);
-            this.shapePropertiesGroupBox.Controls.Add(this.numericUpDown3);
+            this.shapePropertiesGroupBox.Controls.Add(this.yBox);
             this.shapePropertiesGroupBox.Controls.Add(this.label4);
             this.shapePropertiesGroupBox.Controls.Add(this.heightLabel);
-            this.shapePropertiesGroupBox.Controls.Add(this.xLabel);
+            this.shapePropertiesGroupBox.Controls.Add(this.heightBox);
             this.shapePropertiesGroupBox.Controls.Add(this.widthLabel);
-            this.shapePropertiesGroupBox.Controls.Add(this.numericUpDown1);
+            this.shapePropertiesGroupBox.Controls.Add(this.widthBox);
             this.shapePropertiesGroupBox.Controls.Add(this.sizeLabel);
             this.shapePropertiesGroupBox.Controls.Add(this.penTypeLabel);
-            this.shapePropertiesGroupBox.Controls.Add(this.comboBox1);
+            this.shapePropertiesGroupBox.Controls.Add(this.penTypeComboBox);
             this.shapePropertiesGroupBox.Controls.Add(this.brushTypeLabel);
             this.shapePropertiesGroupBox.Controls.Add(this.brushTypeComboBox);
             this.shapePropertiesGroupBox.Location = new System.Drawing.Point(12, 12);
@@ -123,12 +123,22 @@ namespace HW5
             this.xLabel2.Text = "x:";
             this.xLabel2.Click += new System.EventHandler(this.label2_Click_1);
             // 
-            // numericUpDown2
+            // xBox
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(252, 195);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(68, 31);
-            this.numericUpDown2.TabIndex = 15;
+            this.xBox.Location = new System.Drawing.Point(252, 195);
+            this.xBox.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.xBox.Minimum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            -2147483648});
+            this.xBox.Name = "xBox";
+            this.xBox.Size = new System.Drawing.Size(68, 31);
+            this.xBox.TabIndex = 15;
             // 
             // yLabel
             // 
@@ -139,12 +149,22 @@ namespace HW5
             this.yLabel.TabIndex = 14;
             this.yLabel.Text = "y:";
             // 
-            // numericUpDown3
+            // yBox
             // 
-            this.numericUpDown3.Location = new System.Drawing.Point(145, 195);
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(68, 31);
-            this.numericUpDown3.TabIndex = 13;
+            this.yBox.Location = new System.Drawing.Point(145, 195);
+            this.yBox.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.yBox.Minimum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            -2147483648});
+            this.yBox.Name = "yBox";
+            this.yBox.Size = new System.Drawing.Size(68, 31);
+            this.yBox.TabIndex = 13;
             // 
             // label4
             // 
@@ -165,12 +185,22 @@ namespace HW5
             this.heightLabel.Text = "H:";
             this.heightLabel.Click += new System.EventHandler(this.label2_Click);
             // 
-            // xLabel
+            // heightBox
             // 
-            this.xLabel.Location = new System.Drawing.Point(252, 154);
-            this.xLabel.Name = "xLabel";
-            this.xLabel.Size = new System.Drawing.Size(68, 31);
-            this.xLabel.TabIndex = 10;
+            this.heightBox.Location = new System.Drawing.Point(252, 154);
+            this.heightBox.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.heightBox.Minimum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            -2147483648});
+            this.heightBox.Name = "heightBox";
+            this.heightBox.Size = new System.Drawing.Size(68, 31);
+            this.heightBox.TabIndex = 10;
             // 
             // widthLabel
             // 
@@ -181,12 +211,22 @@ namespace HW5
             this.widthLabel.TabIndex = 9;
             this.widthLabel.Text = "W:";
             // 
-            // numericUpDown1
+            // widthBox
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(145, 154);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(68, 31);
-            this.numericUpDown1.TabIndex = 8;
+            this.widthBox.Location = new System.Drawing.Point(145, 154);
+            this.widthBox.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.widthBox.Minimum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            -2147483648});
+            this.widthBox.Name = "widthBox";
+            this.widthBox.Size = new System.Drawing.Size(68, 31);
+            this.widthBox.TabIndex = 8;
             // 
             // sizeLabel
             // 
@@ -206,17 +246,17 @@ namespace HW5
             this.penTypeLabel.TabIndex = 5;
             this.penTypeLabel.Text = "Pen Type:";
             // 
-            // comboBox1
+            // penTypeComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.penTypeComboBox.FormattingEnabled = true;
+            this.penTypeComboBox.Items.AddRange(new object[] {
             "Linear Gradient",
             "Solid",
             "Hatched"});
-            this.comboBox1.Location = new System.Drawing.Point(114, 100);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(206, 33);
-            this.comboBox1.TabIndex = 4;
+            this.penTypeComboBox.Location = new System.Drawing.Point(114, 100);
+            this.penTypeComboBox.Name = "penTypeComboBox";
+            this.penTypeComboBox.Size = new System.Drawing.Size(206, 33);
+            this.penTypeComboBox.TabIndex = 4;
             // 
             // ShapeDialog
             // 
@@ -233,10 +273,10 @@ namespace HW5
             this.Text = "Shape Dialog";
             this.shapePropertiesGroupBox.ResumeLayout(false);
             this.shapePropertiesGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.xLabel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.yBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.heightBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.widthBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -247,16 +287,16 @@ namespace HW5
         private Button saveButton;
         private GroupBox shapePropertiesGroupBox;
         private Label penTypeLabel;
-        private ComboBox comboBox1;
+        private ComboBox penTypeComboBox;
         private Label sizeLabel;
         private Label heightLabel;
-        private NumericUpDown xLabel;
+        private NumericUpDown heightBox;
         private Label widthLabel;
-        private NumericUpDown numericUpDown1;
+        private NumericUpDown widthBox;
         private Label xLabel2;
-        private NumericUpDown numericUpDown2;
+        private NumericUpDown xBox;
         private Label yLabel;
-        private NumericUpDown numericUpDown3;
+        private NumericUpDown yBox;
         private Label label4;
     }
 }
