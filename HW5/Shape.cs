@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing.Drawing2D;
 
 namespace HW5
 {
@@ -24,7 +25,7 @@ namespace HW5
         public String textTitle { get; set; } = "Untitled - ShapePad";
         public Color PenColor { get; set; } = Color.Black;
         public Color BrushColor { get; set; } = Color.Black;
-        public float[] DashPattern { get; set; }
+        public float[] DashPattern { get; set; }        
         [field: NonSerialized()] public Pen Pen { get; set; } = new Pen(Color.Black, 1);
         [field: NonSerialized()] public SolidBrush SolidBrush { get; set; } = new SolidBrush(Color.FromArgb(255, 0, 0, 255));
 
