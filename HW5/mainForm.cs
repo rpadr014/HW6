@@ -158,7 +158,7 @@ namespace HW5
             foreach(Shape s in theFeatures.savedShapes)
             {
                 s.Pen = new Pen(s.PenColor, 1);
-                s.Pen.DashPattern = s.DashPattern;
+                //s.Pen.DashPattern = s.DashPattern;
             }
             this.pictureBox.Refresh();
         }
