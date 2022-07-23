@@ -12,22 +12,37 @@ namespace HW5
 {
     public partial class ShapeDialog : Form
     {
-        public ShapeDialog()
+        private Shape shape;
+
+        public ShapeDialog(Shape shape)
         {
             InitializeComponent();
+            this.shape = shape;
+            this.brushTypeComboBox.DataSource = Enum.GetNames(typeof(BrushType));
+            this.penTypeComboBox.DataSource = Enum.GetNames(typeof(PenType));
+            this.brushTypeComboBox.SelectedItem = this.shape.BrushType;
+            this.penTypeComboBox.SelectedItem = this.shape.PenType;
+            this.widthBox.Value = this.shape.ShapeSize.Width;
+            this.heightBox.Value = this.shape.ShapeSize.Height;
+            this.yBox.Value = this.shape.ShapeLocation.Y;
+            this.xBox.Value = this.shape.ShapeLocation.X;
         }
 
         public event EventHandler SaveButtonClicked;
         public Shape Shape;
 
-        protected virtual void OnSaveButtonClicked(EventArgs e)
-        {
-            SaveButtonClicked.Invoke(this, e);
-        }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
 
+        private void OnSaveButtonClicked(object sender, EventArgs e)
+        {
+            this.shape.BrushType = (BrushType) Enum.Parse(typeof(BrushType), this.brushTypeComboBox.SelectedItem.ToString());
+            this.shape.PenType = (PenType)Enum.Parse(typeof(BrushType), this.penTypeComboBox.SelectedItem.ToString());
+            this.shape.ShapeSize = new Size((int)this.widthBox.Value, (int)this.heightBox.Value);
+            this.shape.ShapeLocation = new Point((int)this.xBox.Value, ((int)this.yBox.Value));
+            if(SaveButtonClicked != null)
+            {
+                SaveButtonClicked(this, EventArgs.Empty);
+            }
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)

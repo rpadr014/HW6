@@ -357,6 +357,8 @@ namespace HW5
             }
         }
 
+        private Shape selectedShape;
+
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -373,16 +375,40 @@ namespace HW5
                     if (rectangle.Contains(e.Location))
                     {
                         this.pictureBox.Invalidate();
+                        
+                        this.selectedShape = s;
+
                         if (s.ShapeType == ShapeType.Rectangle) Graphics.FromImage(this.pictureBox.Image).FillRectangle(new SolidBrush(Color.FromArgb(128, 0, 0, 255)), rectangle);
                         if (s.ShapeType == ShapeType.Ellipse) Graphics.FromImage(this.pictureBox.Image).FillEllipse(new SolidBrush(Color.FromArgb(128, 0, 0, 255)), rectangle);
                         this.pictureBox.Refresh();
-                        ShapeDialog shapeDialog = new ShapeDialog();
+                        ShapeDialog shapeDialog = new ShapeDialog(s);
+                        shapeDialog.SaveButtonClicked += ShapeDialog_SaveButtonClicked;
+                        shapeDialog.FormClosing += ShapeDialog_FormClosing;
                         shapeDialog.ShowDialog();
+
                         break;
                     }
                 }
 
             }
+        }
+
+        private void ShapeDialog_FormClosing(object? sender, FormClosingEventArgs e)
+        {
+            if(selectedShape != null)
+            {
+                Rectangle rectangle = new Rectangle(selectedShape.ShapeLocation.X, selectedShape.ShapeLocation.Y, selectedShape.ShapeSize.Width, selectedShape.ShapeSize.Height);
+                if (selectedShape.ShapeType == ShapeType.Rectangle) Graphics.FromImage(this.pictureBox.Image).FillRectangle(new SolidBrush(Color.White), rectangle);
+                if (selectedShape.ShapeType == ShapeType.Ellipse) Graphics.FromImage(this.pictureBox.Image).FillEllipse(new SolidBrush(Color.White), rectangle);
+
+                this.pictureBox.Refresh();
+            }
+            
+        }
+
+        private void ShapeDialog_SaveButtonClicked(object? sender, EventArgs e)
+        {
+            this.pictureBox.Refresh();
         }
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
