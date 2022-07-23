@@ -384,6 +384,7 @@ namespace HW5
                         ShapeDialog shapeDialog = new ShapeDialog(s);
                         shapeDialog.SaveButtonClicked += ShapeDialog_SaveButtonClicked;
                         shapeDialog.FormClosing += ShapeDialog_FormClosing;
+
                         shapeDialog.ShowDialog();
 
                         break;
